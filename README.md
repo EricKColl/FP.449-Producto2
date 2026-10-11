@@ -47,7 +47,7 @@ docker compose up -d --build
 | MariaDB | `localhost:3307` | Para MySQL Workbench, HeidiSQL, DBeaver o IntelliJ |
 
 ```bash
-docker compose ps          # biblioteca y biblioteca-db deben aparecer como (healthy)
+docker compose ps          # biblioteca-app y biblioteca-db deben aparecer como (healthy)
 docker compose logs -f app # logs de la aplicación
 docker compose down        # parar (los datos se conservan)
 docker compose down -v     # parar y borrar los datos (se recrean desde los scripts al arrancar)
@@ -92,6 +92,16 @@ GitHub Actions los pasa en cada pull request y además levanta el `docker compos
 
 Los valores por defecto (usuarios, contraseñas y puertos) se pueden cambiar copiando `.env.example` a `.env`.
 La BD se publica en el **3307** del equipo para no chocar con un MySQL o XAMPP local en el 3306.
+
+## Problemas frecuentes
+
+| Síntoma | Causa y solución |
+|---|---|
+| `Port 8080 was already in use` al arrancar desde el IDE, o en http://localhost:8080 sale la página del Producto 1 | Sigue en marcha el contenedor del Producto 1 (se llama `biblioteca` y se arranca solo con Docker Desktop). Borrarlo: `docker rm -f biblioteca` |
+| `Port 8080 was already in use` y el contenedor `biblioteca-app` está en marcha | La app ya corre en Docker. Usar una de las dos formas: o Docker (`docker compose up -d`), o el IDE (`docker compose stop app` y ▶ en IntelliJ) |
+| `port is already allocated` en el 3307 | Otro MariaDB/MySQL usa ese puerto. Cambiar `DB_PORT` en un fichero `.env` (ver `.env.example`) |
+| `Schema-validation: missing column` o `missing table` | La BD de Docker se creó con un esquema anterior. Recrearla: `docker compose down -v && docker compose up -d db adminer` |
+| IntelliJ marca errores en todo el código | *File → Project Structure → SDK*: `temurin-21` y recargar Maven (pestaña Maven → flechas en círculo) |
 
 ## Estructura
 

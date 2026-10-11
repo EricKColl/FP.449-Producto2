@@ -39,8 +39,8 @@ services:
 
   app:
     build: .
-    image: biblioteca:latest
-    container_name: biblioteca
+    image: biblioteca-app:latest
+    container_name: biblioteca-app
     depends_on:
       db:
         condition: service_healthy
