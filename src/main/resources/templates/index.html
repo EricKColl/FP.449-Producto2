@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Inicio')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('inicio')}"></nav>
+
+<main class="container py-4">
+    <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
+
+    <div class="mb-4">
+        <h1 class="h3 mb-1">Panel de la biblioteca</h1>
+        <p class="text-body-secondary mb-0">Resumen del catálogo y de la actividad de préstamos.</p>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-sm-6 col-lg-3">
+            <a class="card tarjeta-resumen h-100" th:href="@{/libros}">
+                <div class="card-body">
+                    <i class="bi bi-journal-bookmark icono"></i>
+                    <p class="cifra" th:text="${resumen.libros}">14</p>
+                    <p class="etiqueta">Libros en el catálogo</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <a class="card tarjeta-resumen h-100" th:href="@{/autores}">
+                <div class="card-body">
+                    <i class="bi bi-feather icono"></i>
+                    <p class="cifra" th:text="${resumen.autores}">11</p>
+                    <p class="etiqueta">Autores</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <a class="card tarjeta-resumen h-100" th:href="@{/usuarios}">
+                <div class="card-body">
+                    <i class="bi bi-people icono"></i>
+                    <p class="cifra" th:text="${resumen.usuarios}">6</p>
+                    <p class="etiqueta">Usuarios registrados</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <a class="card tarjeta-resumen h-100" th:href="@{/prestamos}">
+                <div class="card-body">
+                    <i class="bi bi-arrow-left-right icono"></i>
+                    <p class="cifra" th:text="${resumen.prestamosPendientes}">7</p>
+                    <p class="etiqueta">Préstamos sin devolver</p>
+                    <span class="badge text-bg-danger" th:if="${resumen.prestamosVencidos > 0}"
+                          th:text="|${resumen.prestamosVencidos} vencidos|">2 vencidos</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

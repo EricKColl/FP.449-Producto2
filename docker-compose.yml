@@ -1,0 +1,70 @@
+# Entorno completo de la biblioteca:
+#   db       → MariaDB con el esquema y los datos de prueba (src/main/resources/db)
+#   app      → la aplicación Spring Boot (se compila con el Dockerfile)
+#   adminer  → gestor web de la base de datos
+#
+#   docker compose up -d --build      arranca todo  → http://localhost:8080
+#   docker compose up -d db adminer   solo la BD, para ejecutar la app desde el IDE
+#   docker compose down               para los contenedores (los datos se conservan)
+#   docker compose down -v            para y BORRA los datos; al volver a arrancar
+#                                     se recrean desde los scripts SQL
+#
+# Los valores por defecto se pueden cambiar con un fichero .env (ver .env.example).
+
+services:
+  db:
+    image: mariadb:11.8
+    container_name: biblioteca-db
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_DATABASE: biblioteca
+      MARIADB_USER: ${DB_USER:-biblioteca}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-biblioteca}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      TZ: Europe/Madrid
+    ports:
+      # 3307 en el equipo para no chocar con un MySQL/XAMPP local en el 3306
+      - "${DB_PORT:-3307}:3306"
+    volumes:
+      - datos-mariadb:/var/lib/mysql
+      # Solo se ejecutan la primera vez (con el volumen vacío)
+      - ./src/main/resources/db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  app:
+    build: .
+    image: biblioteca:latest
+    container_name: biblioteca
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://db:3306/biblioteca
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-biblioteca}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-biblioteca}
+      TZ: Europe/Madrid
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    restart: unless-stopped
+
+  adminer:
+    image: adminer:5
+    container_name: biblioteca-adminer
+    # Por defecto escucha solo en IPv6 ([::]) y falla en equipos sin IPv6
+    command: ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
+    depends_on:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+    restart: unless-stopped
+
+volumes:
+  datos-mariadb:

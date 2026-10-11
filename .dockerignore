@@ -1,0 +1,17 @@
+target/
+.git/
+.idea/
+.vscode/
+*.iml
+.mvn/
+mvnw
+mvnw.cmd
+Dockerfile
+docker-compose.yml
+.env
+.env.example
+docs/
+README.md
+CONTRIBUTING.md
+*.log
+.DS_Store
