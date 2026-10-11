@@ -29,7 +29,7 @@ Las cuatro partes llevan una carga parecida (unas 9-10 horas cada una). La prime
 - [x] Documentación: `README.md`, `CONTRIBUTING.md`, `docs/`.
 
 **Pendiente durante el proyecto**
-- [x] Crear las ramas `main`, `develop` y la rama de trabajo de cada persona, y las issues del reparto.
+- [x] Crear las ramas `main`, `develop` y la rama de trabajo de cada persona.
 - [ ] Proteger `main` y `develop` (igual que en el Producto 1).
 - [ ] Revisar y fusionar las pull requests; resolver conflictos; mantener Docker funcionando.
 - [ ] Prueba final desde un clon limpio: `docker compose down -v && docker compose up -d --build`.
