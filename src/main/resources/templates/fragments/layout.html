@@ -86,6 +86,13 @@
     </div>
 </th:block>
 
+<!-- Estado de un préstamo con su color:
+     <span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span> -->
+<span th:fragment="estadoPrestamo(prestamo)" class="badge"
+      th:classappend="${prestamo.estado.name() == 'VENCIDO'} ? 'text-bg-danger'
+                      : (${prestamo.devuelto} ? 'text-bg-success' : 'text-bg-primary')"
+      th:text="${prestamo.estado.etiqueta}">Activo</span>
+
 <footer th:fragment="footer" class="pie border-top">
     <div class="container py-3 small text-body-secondary d-flex justify-content-between flex-wrap gap-2">
         <span>FP065 · UOC · Proyecto Biblioteca</span>

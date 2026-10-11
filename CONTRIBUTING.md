@@ -73,6 +73,14 @@ Id inexistente → `throw new ResponseStatusException(HttpStatus.NOT_FOUND, "...
 `head('Título')`, `navbar('libros'|'autores'|'usuarios'|'prestamos'|'inicio')`, `alertas` y `footer`.
 Componentes de Bootstrap 5 (tablas `table table-hover`, `card`, `btn btn-primary`, `badge`, `form-control`,
 `is-invalid` + `invalid-feedback`) e iconos `bi bi-*`. Nada de CSS ni JS por CDN: todo sale de los WebJars.
+No se añade CSS propio en cada vista: solo clases de Bootstrap. Si hace falta un estilo nuevo, se pide a Erick.
+
+- Estado de un préstamo con su color: `<span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span>`.
+- Fechas siempre así: `${#temporals.format(fecha, 'dd/MM/yyyy')}` (si puede ser `null`, comprobarlo antes).
+- Valor vacío: `th:text="${libro.editorial} ?: '—'"`.
+- Selección de entidades en un formulario (p. ej. los autores de un libro): `<select th:field="*{autores}" multiple>`
+  con `th:value="${autor.id}"`. Spring Data convierte solo los ids en entidades y marca las opciones ya elegidas.
+  La lista de opciones va en el modelo con otro nombre (`todosLosAutores`) para no confundirla con el campo.
 
 **Mensajes**: tras crear, editar o eliminar, redirigir (patrón PRG) con
 `redirectAttributes.addFlashAttribute("mensajeExito" | "mensajeError", "...")`; el fragmento `alertas` los muestra.
@@ -88,9 +96,14 @@ Las reglas de negocio (ISBN repetido, borrar con préstamos, ejemplares disponib
 entidad exige cambiar también `db/01-esquema.sql` (y `02-datos.sql`) y `docs/modelo-datos.md`, y avisar al equipo.
 `./mvnw verify` detecta si no coinciden. No cambiar a `ddl-auto=update`.
 
-**Tests**: cada controlador nuevo, con su test `@WebMvcTest` (servicios con `@MockitoBean`). Los tests de
-repositorio o de integración usan `@ActiveProfiles("h2")` y los datos de `02-datos.sql`
-(14 libros, 11 autores, 6 usuarios, 11 préstamos: 7 sin devolver, 2 de ellos vencidos).
+**Tests**: cada controlador nuevo, con su clase de test en `src/test/java/edu/uoc/biblioteca/controller/`.
+Patrón común: `@SpringBootTest` + `@AutoConfigureMockMvc` + `@ActiveProfiles("h2")` + `@Transactional`
+(aplicación completa sobre H2 con los datos de `02-datos.sql`; cada test deshace sus cambios al terminar).
+Datos de prueba: 14 libros, 11 autores, 6 usuarios, 11 préstamos (7 sin devolver, 2 de ellos vencidos).
+
+**Ficheros compartidos** (los cambia solo Erick, o se le avisa antes): `pom.xml`, `application*.properties`,
+`db/*.sql`, `model/*`, `fragments/layout.html`, `estilos.css`, `Dockerfile`, `docker-compose.yml`.
+Añadir un método nuevo a un repositorio sí se puede (no cambia las tablas).
 
 **Git**: `main` ← `develop` ← `feature/<tarea>`. Pull request a `develop` con revisión. `./mvnw verify` en verde
 antes de abrir la PR (el CI de GitHub Actions lo comprueba y también construye la imagen Docker).

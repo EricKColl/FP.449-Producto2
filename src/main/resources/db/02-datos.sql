@@ -2,10 +2,13 @@
 --  Biblioteca · Datos de prueba
 --  Las fechas son relativas al día actual para que siempre haya préstamos
 --  activos, vencidos y devueltos al hacer la demostración.
+--  Cervantes y Carlota Pérez-Reverte no tienen fecha de nacimiento: la de
+--  Cervantes es incierta y, al ser anterior al calendario gregoriano (1582),
+--  Java la mostraría desplazada 10 días.
 -- =====================================================================
 
 INSERT INTO autor (id, nombre, apellidos, nacionalidad, fecha_nacimiento) VALUES
-    (1,  'Miguel de', 'Cervantes Saavedra', 'Española',   DATE '1547-09-29'),
+    (1,  'Miguel de', 'Cervantes Saavedra', 'Española',   NULL),
     (2,  'Gabriel',   'García Márquez',     'Colombiana', DATE '1927-03-06'),
     (3,  'Isabel',    'Allende',            'Chilena',    DATE '1942-08-02'),
     (4,  'Carlos',    'Ruiz Zafón',         'Española',   DATE '1964-09-25'),

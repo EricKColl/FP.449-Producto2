@@ -6,6 +6,14 @@
     --color-principal: #1f4e79;
     --color-principal-oscuro: #173c5d;
     --color-fondo: #f4f6f9;
+
+    /* El "primary" de Bootstrap pasa a ser el azul de la biblioteca (badges, enlaces, utilidades) */
+    --bs-primary: #1f4e79;
+    --bs-primary-rgb: 31, 78, 121;
+    --bs-link-color: #1f4e79;
+    --bs-link-color-rgb: 31, 78, 121;
+    --bs-link-hover-color: #173c5d;
+    --bs-link-hover-color-rgb: 23, 60, 93;
 }
 
 body {
@@ -44,8 +52,19 @@ body > main {
     --bs-btn-active-border-color: var(--color-principal-oscuro);
 }
 
-a {
-    color: var(--color-principal);
+.btn-outline-primary {
+    --bs-btn-color: var(--color-principal);
+    --bs-btn-border-color: var(--color-principal);
+    --bs-btn-hover-bg: var(--color-principal);
+    --bs-btn-hover-border-color: var(--color-principal);
+    --bs-btn-active-bg: var(--color-principal-oscuro);
+    --bs-btn-active-border-color: var(--color-principal-oscuro);
+}
+
+.btn-link {
+    --bs-btn-color: var(--color-principal);
+    --bs-btn-hover-color: var(--color-principal-oscuro);
+    --bs-btn-active-color: var(--color-principal-oscuro);
 }
 
 /* --- Tarjetas del panel de inicio --- */
