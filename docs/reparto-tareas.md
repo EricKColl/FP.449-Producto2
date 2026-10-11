@@ -8,12 +8,14 @@ sin pisarse. La asignación de nombres es una propuesta: si alguien prefiere otr
 
 | | Persona | Parte | Criterio de la rúbrica del que es responsable |
 |---|---|---|---|
-| **1** | Erick Coll | Base técnica: modelo de datos, Docker, layout común. Integración final | Modelos con Spring Data · Docker |
+| **1** | Erick Coll | Base técnica: modelo de datos, Docker, layout común. Integración final y montaje del vídeo | Modelos con Spring Data · Docker |
 | **2** | Carles Miguel | CRUD completo de **Libros** | CRUD con Spring |
-| **3** | Jacobo Barrera | **Autores** y **Usuarios** + diagrama E/R y modelo relacional + vídeo | Diagrama E/R |
+| **3** | Jacobo Barrera | **Autores** y **Usuarios** + diagrama E/R y modelo relacional | Diagrama E/R |
 | **4** | Antonio Charneco | **Mockup** + **Préstamos** + memoria final | Mockup |
 
 Las cuatro partes llevan una carga parecida (unas 9-10 horas cada una). La primera va antes porque las demás dependen de ella.
+
+**El vídeo es de todo el equipo**: enseña el programa completo funcionando y **cada uno graba la parte que ha hecho**. Erick une los cortes en un solo vídeo (ver [Vídeo](#vídeo-6-8-min-cada-uno-graba-su-parte)).
 
 ---
 
@@ -33,6 +35,8 @@ Las cuatro partes llevan una carga parecida (unas 9-10 horas cada una). La prime
 - [ ] Proteger `main` y `develop` (igual que en el Producto 1).
 - [ ] Revisar y fusionar las pull requests; resolver conflictos; mantener Docker funcionando.
 - [ ] Prueba final desde un clon limpio: `docker compose down -v && docker compose up -d --build`.
+- [ ] Grabar su parte del vídeo (presentación, Docker, Adminer y panel de inicio; y el cierre).
+- [ ] Unir los cortes de todos en un solo vídeo y subirlo a YouTube.
 - [ ] Memoria: apartados de modelo de datos y Docker.
 - [ ] Preparar el ZIP de entrega.
 
@@ -64,6 +68,7 @@ Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y fun
 - [ ] No permitir borrar un libro con préstamos (`prestamoRepository.existsByLibroId`) → `mensajeError`.
 - [ ] Mensajes flash de éxito al crear, editar y eliminar.
 - [ ] Tests MockMvc: listar, crear válido (redirige), crear inválido (vuelve al formulario), eliminar con préstamos.
+- [ ] Grabar su parte del vídeo: el CRUD de libros.
 - [ ] Memoria: apartado del CRUD, con capturas.
 
 ---
@@ -90,7 +95,7 @@ Rama: `feature/jacobo-autores-usuarios`
 - [ ] Los dos diagramas deben coincidir con `docs/modelo-datos.md`.
 - [ ] Tests MockMvc de los listados.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
-- [ ] **Vídeo** (5-8 min) cuando todo esté en `develop` (ver guion al final).
+- [ ] Grabar su parte del vídeo: diagramas, autores y usuarios.
 - [ ] Memoria: apartado del diagrama E/R y del modelo relacional.
 
 ---
@@ -111,6 +116,7 @@ Rama: `feature/antonio-mockup-prestamos`
   - registrar la devolución → `POST /prestamos/{id}/devolver` (pone la fecha de hoy + mensaje)
   - extra si da tiempo: nuevo préstamo, solo con libros que tengan ejemplares disponibles
 - [ ] Tests MockMvc del listado y de la devolución.
+- [ ] Grabar su parte del vídeo: mockup y préstamos.
 - [ ] **Memoria final**: plantilla común, recoger los apartados de cada uno y montar el PDF
       (trabajo realizado, dificultades, puntos no realizados, propuestas de mejora, autoevaluación con la rúbrica, webgrafía).
 
@@ -122,8 +128,10 @@ Rama: `feature/antonio-mockup-prestamos`
 |---|---|
 | **12-18 oct** | Mockup (P4) y borrador del E/R (P3) antes del jueves 15. P2, P3 y P4 empiezan su parte en su rama `feature/*`. |
 | **19-25 oct** | Partes terminadas → pull request a `develop` y revisión cruzada. |
-| **26-30 oct** | Congelación el miércoles 28. Integración, prueba completa con Docker, vídeo y memoria. |
-| **31 oct** | Entrega (un día de margen). |
+| **26-28 oct** | Revisión y unión de las pull requests. Congelación el miércoles 28: todo en `develop` y pasado a `main`. |
+| **29 oct** | Cada uno graba su parte del vídeo y se la envía a Erick. |
+| **30 oct** | Erick une el vídeo y lo sube a YouTube. Cada uno entrega su apartado de la memoria a Antonio. |
+| **31 oct** | Memoria en PDF, ZIP y entrega (un día de margen). |
 
 ## Forma de trabajar
 
@@ -140,12 +148,30 @@ Rama: `feature/antonio-mockup-prestamos`
 4. Está fusionada en `develop` tras una revisión.
 5. Tiene su apartado en la memoria, con capturas.
 
-## Guion del vídeo (5-8 min)
+## Vídeo (6-8 min): cada uno graba su parte
 
-1. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en *healthy* / *running*).
-2. Adminer (`localhost:8081`): las tablas y la relación `libro_autor`.
-3. Panel de inicio → menú de navegación.
-4. CRUD de libros completo: crear (con un error de validación), ver, editar, eliminar (y el bloqueo de un libro con préstamos).
-5. Autores y usuarios (listados y detalles).
-6. Préstamos: filtro por estado y registrar una devolución → el panel se actualiza.
-7. Cierre: diagrama E/R y mockup, comparados con la aplicación final.
+El vídeo enseña **todo el programa funcionando**. Cada persona graba **lo que ha hecho** y lo explica con su voz;
+después Erick une los cortes en un solo vídeo.
+
+| Orden | Quién | Duración | Qué enseña |
+|---|---|---|---|
+| 1 | Erick | 1:30 | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Panel de inicio y menú de navegación. |
+| 2 | Carles | 2:00 | CRUD de libros: buscar, crear con un error de validación, crear bien, ver el detalle, editar (con los autores marcados) y eliminar (un libro sin préstamos y el bloqueo de uno con préstamos). |
+| 3 | Jacobo | 1:30 | Diagrama E/R y modelo relacional. Autores y usuarios: listados y detalles. |
+| 4 | Antonio | 1:30 | Mockup comparado con la aplicación. Préstamos: filtro por estado y registrar una devolución; el panel de inicio se actualiza. |
+| 5 | Erick | 0:30 | Cierre: los tests en verde (`verify`) y las comprobaciones automáticas de GitHub. |
+
+**Cómo grabar tu parte**
+
+1. Después de la congelación (miércoles 28), ponte al día: `git switch develop` y `git pull`.
+2. Para la aplicación de IntelliJ (■) y arranca todo como en la entrega, con los datos de prueba limpios:
+   `docker compose down -v` y `docker compose up -d --build`.
+3. Graba la **pantalla completa con micrófono** en formato mp4. Recomendado: **OBS Studio** (Windows y Mac).
+   Sin instalar nada: `Cmd`+`Mayús`+`5` en Mac; en Windows, `Win`+`Alt`+`R` graba solo la ventana activa (sirve si solo enseñas el navegador).
+4. Habla como si se lo explicaras al profesor: qué haces y por qué funciona así. Ensáyalo una vez antes de grabar.
+5. Llama al fichero `video-<orden>-<nombre>.mp4` (por ejemplo `video-2-carles.mp4`) y envíaselo a Erick
+   (Google Drive o WeTransfer) **el jueves 29**.
+
+**Montaje (Erick)**: une los cortes en orden con Clipchamp (Windows, viene instalado) o iMovie (Mac); también sirven
+Shotcut o DaVinci Resolve en los dos. Sube el vídeo a YouTube como **Oculto** y pasa el enlace al grupo el **viernes 30**:
+va en la memoria y en el ZIP de la entrega.
