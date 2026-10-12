@@ -3,17 +3,20 @@
 Entrega: **domingo 1 de noviembre de 2026, 23:59**. Fecha interna de entrega: **sábado 31 de octubre** (un día de margen).
 
 El reparto sigue la rúbrica (5 criterios × 5 puntos): cada persona es responsable de **un criterio completo** y de
-**una parte vertical de la aplicación** (servicio + controlador + vistas + tests), así se puede trabajar en paralelo
-sin pisarse. La asignación de nombres es una propuesta: si alguien prefiere otra parte, se intercambia sin problema.
+**una parte vertical de la aplicación** (servicio + controlador + vistas + tests).
+
+**El código se hace por turnos**, uno detrás de otro (ver [Calendario](#calendario-por-turnos)): cada persona programa
+su parte cuando le toca, partiendo del trabajo del anterior ya unido en `develop`. Así nadie tiene que resolver
+conflictos al juntar el código. El mockup y los diagramas no esperan turno porque no tocan el código.
 
 | | Persona | Parte | Criterio de la rúbrica del que es responsable |
 |---|---|---|---|
-| **1** | Erick Coll | Base técnica: modelo de datos, Docker, layout común. Integración final y montaje del vídeo | Modelos con Spring Data · Docker |
+| **1** | Erick Coll | Base técnica: modelo de datos, Docker, layout común. Revisión e integración de las pull requests, montaje del vídeo y memoria | Modelos con Spring Data · Docker |
 | **2** | Carles Miguel | CRUD completo de **Libros** | CRUD con Spring |
 | **3** | Jacobo Barrera | **Autores** y **Usuarios** + diagrama E/R y modelo relacional | Diagrama E/R |
-| **4** | Antonio Charneco | **Mockup** + **Préstamos** + memoria final | Mockup |
+| **4** | Antonio Charneco | **Mockup** + **Préstamos** | Mockup |
 
-Las cuatro partes llevan una carga parecida (unas 9-10 horas cada una). La primera va antes porque las demás dependen de ella.
+La base técnica fue la primera porque todas las demás dependen de ella. Cada parte de código lleva unas 8-10 horas.
 
 **El vídeo es de todo el equipo**: enseña el programa completo funcionando y **cada uno graba la parte que ha hecho**. Erick une los cortes en un solo vídeo (ver [Vídeo](#vídeo-6-8-min-cada-uno-graba-su-parte)).
 
@@ -33,18 +36,19 @@ Las cuatro partes llevan una carga parecida (unas 9-10 horas cada una). La prime
 **Pendiente durante el proyecto**
 - [x] Crear las ramas `main`, `develop` y la rama de trabajo de cada persona.
 - [ ] Proteger `main` y `develop` (igual que en el Producto 1).
-- [ ] Revisar y fusionar las pull requests; resolver conflictos; mantener Docker funcionando.
+- [ ] Revisar y fusionar las pull requests **en el orden de los turnos** y avisar en el grupo al fusionar cada una
+      (es la señal para que empiece el turno siguiente). Mantener Docker funcionando.
 - [ ] Prueba final desde un clon limpio: `docker compose down -v && docker compose up -d --build`.
 - [ ] Grabar su parte del vídeo (presentación, Docker, Adminer y panel de inicio; y el cierre).
 - [ ] Unir los cortes de todos en un solo vídeo y subirlo a YouTube.
-- [ ] Memoria: apartados de modelo de datos y Docker.
+- [ ] Memoria: montarla con lo que envíe cada uno (antes del viernes 30), poner el enlace del vídeo y exportar el PDF.
 - [ ] Preparar el ZIP de entrega.
 
 ---
 
 ## Persona 2 · CRUD completo de Libros (Carles)
 
-Rama: `feature/carles-crud-libros`
+Rama: `feature/carles-crud-libros` · **Turno 1: del lunes 12 al lunes 19 de octubre** (pull request el lunes 19)
 
 Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y funcionando**.
 
@@ -59,23 +63,24 @@ Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y fun
 | Crear | `POST /libros` |
 | Formulario de edición | `GET /libros/{id}/editar` |
 | Actualizar | `POST /libros/{id}` |
-| Eliminar, con confirmación (modal de Bootstrap) | `POST /libros/{id}/eliminar` |
+| Eliminar, con confirmación | `POST /libros/{id}/eliminar` |
 
 - [ ] Formulario con validación (`@Valid` + `BindingResult`) y los errores bajo cada campo.
-- [ ] Selección múltiple de **autores** (es la relación N:M). Lo más sencillo es recibir los ids con
-      `@RequestParam(required = false) List<Long> autorIds` y asignarlos con `autorRepository.findAllById(autorIds)`.
-- [ ] ISBN duplicado → error en el campo (`existsByIsbn`), no una excepción.
+- [ ] Selección múltiple de **autores** (es la relación N:M) con `th:field="*{autores}"`: Spring convierte los ids
+      marcados en objetos `Autor` (código completo en la guía, apartado 9).
+- [ ] ISBN duplicado → error en el campo (`findByIsbn`), no una excepción.
 - [ ] No permitir borrar un libro con préstamos (`prestamoRepository.existsByLibroId`) → `mensajeError`.
 - [ ] Mensajes flash de éxito al crear, editar y eliminar.
 - [ ] Tests MockMvc: listar, crear válido (redirige), crear inválido (vuelve al formulario), eliminar con préstamos.
 - [ ] Grabar su parte del vídeo: el CRUD de libros.
-- [ ] Memoria: apartado del CRUD, con capturas.
+- [ ] Memoria: enviar a Erick qué ha hecho y sus dificultades (antes del viernes 30).
 
 ---
 
 ## Persona 3 · Autores, Usuarios y diagrama E/R (Jacobo)
 
-Rama: `feature/jacobo-autores-usuarios`
+Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ya** (borrador antes del jueves 15) ·
+**Turno 2 (pantallas): del martes 20 al viernes 23 de octubre** (pull request el viernes 23)
 
 **Ficheros**: `service/AutorService.java`, `controller/AutorController.java`, `templates/autores/lista.html`,
 `templates/autores/detalle.html`, `service/UsuarioService.java`, `controller/UsuarioController.java`,
@@ -96,15 +101,16 @@ Rama: `feature/jacobo-autores-usuarios`
 - [ ] Tests MockMvc de los listados.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
 - [ ] Grabar su parte del vídeo: diagramas, autores y usuarios.
-- [ ] Memoria: apartado del diagrama E/R y del modelo relacional.
+- [ ] Memoria: enviar a Erick qué ha hecho (diagramas y pantallas) y sus dificultades (antes del viernes 30).
 
 ---
 
-## Persona 4 · Mockup, Préstamos y memoria (Antonio)
+## Persona 4 · Mockup y Préstamos (Antonio)
 
-Rama: `feature/antonio-mockup-prestamos`
+Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15) ·
+**Turno 3 (préstamos): del viernes 23 al martes 27 de octubre** (pull request el martes 27)
 
-**El mockup va primero** (antes del jueves 15 de octubre): sirve de guía a las vistas de los demás.
+**El mockup va primero** y no espera turno: sirve de guía a las vistas de los demás.
 
 - [ ] Mockup (Figma, Balsamiq, Pencil o draw.io) que siga el estilo del layout ya hecho (Bootstrap, azul `#1f4e79`):
   - panel de inicio · listado de libros · formulario de libro · detalle de libro · listado de usuarios · listado de préstamos
@@ -117,25 +123,45 @@ Rama: `feature/antonio-mockup-prestamos`
   - extra si da tiempo: nuevo préstamo, solo con libros que tengan ejemplares disponibles
 - [ ] Tests MockMvc del listado y de la devolución.
 - [ ] Grabar su parte del vídeo: mockup y préstamos.
-- [ ] **Memoria final**: plantilla común, recoger los apartados de cada uno y montar el PDF
-      (trabajo realizado, dificultades, puntos no realizados, propuestas de mejora, autoevaluación con la rúbrica, webgrafía).
+- [ ] Memoria: enviar a Erick qué ha hecho (mockup y préstamos) y sus dificultades (antes del viernes 30).
 
 ---
 
-## Calendario
+## Calendario por turnos
 
-| Semana | Objetivo |
-|---|---|
-| **12-18 oct** | Mockup (P4) y borrador del E/R (P3) antes del jueves 15. P2, P3 y P4 empiezan su parte en su rama `feature/*`. |
-| **19-25 oct** | Partes terminadas → pull request a `develop` y revisión cruzada. |
-| **26-28 oct** | Revisión y unión de las pull requests. Congelación el miércoles 28: todo en `develop` y pasado a `main`. |
-| **29 oct** | Cada uno graba su parte del vídeo y se la envía a Erick. |
-| **30 oct** | Erick une el vídeo y lo sube a YouTube. Cada uno entrega su apartado de la memoria a Antonio. |
-| **31 oct** | Memoria en PDF, ZIP y entrega (un día de margen). |
+| Fecha | Qué | Quién |
+|---|---|---|
+| Domingo 11 oct | Base técnica en GitHub ✅ | Erick |
+| **Lunes 12 – lunes 19 oct** | **Turno 1**: CRUD de libros. El lunes 19, pull request y Erick la une | Carles |
+| **Jueves 15 oct** | Mockup terminado y borrador del diagrama E/R, enviados al grupo (no esperan turno) | Antonio, Jacobo |
+| **Martes 20 – viernes 23 oct** | **Turno 2**: autores y usuarios + diagramas finales. El viernes 23, pull request | Jacobo |
+| **Viernes 23 – martes 27 oct** | **Turno 3**: préstamos + mockup final. El martes 27, pull request | Antonio |
+| **Miércoles 28 oct** | Congelación: todo en `develop` y pasado a `main`. Desde aquí, solo arreglos | Erick |
+| **Jueves 29 oct** | Cada uno graba su parte del vídeo y se la envía a Erick | Todos |
+| **Viernes 30 oct** | Erick une el vídeo y lo sube a YouTube. Cada uno envía a Erick lo de su parte para la memoria | Erick / todos |
+| **Sábado 31 oct** | Memoria en PDF, ZIP y cada uno sube la entrega (un día de margen) | Todos |
+
+**Cómo funcionan los turnos**
+
+1. **Nadie programa antes de su turno.** Mientras tanto: dejar el proyecto funcionando en el ordenador (guía, apartados 2 a 5)
+   y leer el capítulo propio de la guía.
+2. **Erick avisa en el grupo cuando une una pull request**: es la señal de que empieza el turno siguiente.
+3. **Al empezar tu turno**, trae a tu rama lo último de `develop`:
+   ```
+   git switch develop
+   git pull
+   git switch feature/<tu-rama>
+   git merge develop
+   git push
+   ```
+4. **Si no vas a llegar a tu fecha, avisa con un día de margen** para que el siguiente se organice.
+5. El mockup y los diagramas se suben a la rama de cada uno en cuanto estén (son ficheros nuevos de `docs/` y no chocan
+   con nada) y entran en `develop` con la pull request de su turno.
 
 ## Forma de trabajar
 
 - Ramas: `main` (estable) ← `develop` (integración) ← `feature/<tarea>`. Pull request a `develop` revisada por otra persona.
+- El código se hace **por turnos** (ver arriba) y las pull requests se unen en ese mismo orden.
 - Antes de abrir la PR: `./mvnw verify` en verde y la app probada en el navegador.
 - Las convenciones de código y de vistas están en [`CONTRIBUTING.md`](../CONTRIBUTING.md). Hay que seguirlas para que todas las pantallas se vean y funcionen igual.
 - **El modelo es común**: si alguien necesita cambiar una entidad o el SQL, lo avisa antes en el grupo (ver `docs/modelo-datos.md`).
@@ -146,7 +172,7 @@ Rama: `feature/antonio-mockup-prestamos`
 2. Usa el layout común (menú, mensajes, pie) y la opción del menú correspondiente queda marcada.
 3. Tiene tests y `./mvnw verify` pasa.
 4. Está fusionada en `develop` tras una revisión.
-5. Tiene su apartado en la memoria, con capturas.
+5. Su autor ha enviado a Erick lo que ha hecho y sus dificultades para la memoria.
 
 ## Vídeo (6-8 min): cada uno graba su parte
 
