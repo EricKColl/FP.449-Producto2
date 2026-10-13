@@ -1,7 +1,8 @@
 # Modelo de datos
 
-Este documento es la referencia técnica del modelo. El diagrama E/R formal de la entrega (notación de Chen)
-y el modelo relacional exportado de MySQL Workbench se guardan en `docs/diagramas/` y deben coincidir con lo que aquí se describe.
+Este documento es la referencia técnica del modelo. El diagrama E/R formal de la entrega (notación de Chen, hecho en
+Lucidchart: `docs/diagramas/er.png`) y el modelo relacional obtenido por ingeniería inversa con MySQL Workbench
+(`docs/diagramas/relacional.png` y el modelo editable `relacional.mwb`) coinciden con lo que aquí se describe.
 
 ## Diagrama E/R
 
@@ -9,7 +10,7 @@ y el modelo relacional exportado de MySQL Workbench se guardan en `docs/diagrama
 erDiagram
     AUTOR }|--o{ LIBRO : escribe
     USUARIO ||--o{ PRESTAMO : realiza
-    LIBRO ||--o{ PRESTAMO : "se presta en"
+    LIBRO ||--o{ PRESTAMO : "corresponde a"
 
     AUTOR {
         BIGINT id PK
@@ -52,7 +53,7 @@ erDiagram
 |---|---|---|---|
 | Autor **escribe** Libro | **N:M** (un libro tiene uno o varios autores; un autor, varios libros) | Tabla intermedia `libro_autor` | `Libro.autores` `@ManyToMany` + `@JoinTable` (lado propietario) · `Autor.libros` `@ManyToMany(mappedBy)` |
 | Usuario **realiza** Préstamo | 1:N | `prestamo.usuario_id` | `Prestamo.usuario` `@ManyToOne` · `Usuario.prestamos` `@OneToMany(mappedBy)` |
-| Libro **se presta en** Préstamo | 1:N | `prestamo.libro_id` | `Prestamo.libro` `@ManyToOne` · `Libro.prestamos` `@OneToMany(mappedBy)` |
+| Préstamo **corresponde a** Libro | 1:N | `prestamo.libro_id` | `Prestamo.libro` `@ManyToOne` · `Libro.prestamos` `@OneToMany(mappedBy)` |
 
 Visto desde el E/R, **Usuario–Libro también es N:M**: un usuario toma prestados muchos libros y un libro lo toman
 prestado muchos usuarios a lo largo del tiempo. Como esa relación tiene atributos propios (las fechas), se
