@@ -97,8 +97,6 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ya** (borrador antes del
       subrayadas, relaciones con cardinalidades y la **N:M** bien marcada. Hecho en Lucidchart → `er.png` (PR #2).
 - [x] Modelo relacional: MySQL Workbench → *Database → Reverse Engineer* contra `localhost:3307`
       (usuario `biblioteca` / `biblioteca`) → `relacional.png` + `relacional.mwb` (PR #2).
-- [ ] Con la pull request de su turno: `relacional.png` en alta resolución (o `relacional.svg`) y quitar del modelo
-      el esquema vacío `mydb` que crea Workbench por defecto.
 - [x] Los dos diagramas coinciden con `docs/modelo-datos.md`.
 - [ ] Tests MockMvc de los listados.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
