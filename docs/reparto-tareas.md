@@ -93,11 +93,11 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ya** (borrador antes del
 | Listado de usuarios | `GET /usuarios` |
 | Detalle de usuario con su historial de préstamos y su estado | `GET /usuarios/{id}` |
 
-- [ ] Diagrama E/R en notación de Chen (draw.io): las 4 entidades con **todos** sus atributos, claves primarias
-      subrayadas, relaciones con cardinalidades y la **N:M** bien marcada. Fuente `.drawio` + `er.png`.
-- [ ] Modelo relacional: MySQL Workbench → *Database → Reverse Engineer* contra `localhost:3307`
-      (usuario `biblioteca` / `biblioteca`) → exportar `relacional.png`.
-- [ ] Los dos diagramas deben coincidir con `docs/modelo-datos.md`.
+- [x] Diagrama E/R en notación de Chen: las 4 entidades con **todos** sus atributos, claves primarias
+      subrayadas, relaciones con cardinalidades y la **N:M** bien marcada. Hecho en Lucidchart → `er.png` (PR #2).
+- [x] Modelo relacional: MySQL Workbench → *Database → Reverse Engineer* contra `localhost:3307`
+      (usuario `biblioteca` / `biblioteca`) → `relacional.png` + `relacional.mwb` (PR #2).
+- [x] Los dos diagramas coinciden con `docs/modelo-datos.md`.
 - [ ] Tests MockMvc de los listados.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
 - [ ] Grabar su parte del vídeo: diagramas, autores y usuarios.
