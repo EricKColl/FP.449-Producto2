@@ -1,51 +1,14 @@
 # Modelo de datos
 
-Este documento es la referencia técnica del modelo. El diagrama E/R formal de la entrega (notación de Chen, hecho en
-Lucidchart: `docs/diagramas/er.png`) y el modelo relacional obtenido por ingeniería inversa con MySQL Workbench
-(`docs/diagramas/relacional.png` y el modelo editable `relacional.mwb`) coinciden con lo que aquí se describe.
+Este documento es la referencia técnica del modelo: los dos diagramas de la entrega y las reglas que siguen la base
+de datos y las entidades JPA.
 
 ## Diagrama E/R
 
-```mermaid
-erDiagram
-    AUTOR }|--o{ LIBRO : escribe
-    USUARIO ||--o{ PRESTAMO : realiza
-    LIBRO ||--o{ PRESTAMO : "corresponde a"
+Notación de Chen, hecho en Lucidchart. Junto a cada entidad, el par (mín,máx) indica su participación mínima y máxima en
+la relación; la clave primaria va subrayada y (U) marca los valores únicos.
 
-    AUTOR {
-        BIGINT id PK
-        VARCHAR nombre
-        VARCHAR apellidos
-        VARCHAR nacionalidad
-        DATE fecha_nacimiento
-    }
-    LIBRO {
-        BIGINT id PK
-        VARCHAR isbn UK
-        VARCHAR titulo
-        VARCHAR editorial
-        INT anio_publicacion
-        VARCHAR genero
-        INT ejemplares
-    }
-    USUARIO {
-        BIGINT id PK
-        VARCHAR dni UK
-        VARCHAR nombre
-        VARCHAR apellidos
-        VARCHAR email UK
-        VARCHAR telefono
-        DATE fecha_alta
-    }
-    PRESTAMO {
-        BIGINT id PK
-        BIGINT usuario_id FK
-        BIGINT libro_id FK
-        DATE fecha_prestamo
-        DATE fecha_devolucion_prevista
-        DATE fecha_devolucion
-    }
-```
+![Diagrama E/R de la biblioteca](diagramas/er.png)
 
 ## Relaciones
 
@@ -60,6 +23,12 @@ prestado muchos usuarios a lo largo del tiempo. Como esa relación tiene atribut
 convierte en la entidad `Prestamo`. Así el modelo tiene dos N:M: una "pura" (`libro_autor`) y otra con atributos (`prestamo`).
 
 ## Modelo relacional
+
+Obtenido por ingeniería inversa de la base de datos real con MySQL Workbench (*Database → Reverse Engineer*). Las líneas
+continuas son relaciones identificativas (las claves ajenas de `libro_autor` forman parte de su clave primaria) y las
+discontinuas, no identificativas. Modelo editable: [`diagramas/relacional.mwb`](diagramas/relacional.mwb).
+
+![Modelo relacional de la biblioteca](diagramas/relacional.png)
 
 - **autor** (<u>id</u>, nombre, apellidos, nacionalidad, fecha_nacimiento)
 - **libro** (<u>id</u>, isbn *UK*, titulo, editorial, anio_publicacion, genero, ejemplares)
