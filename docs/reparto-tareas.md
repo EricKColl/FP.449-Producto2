@@ -48,7 +48,7 @@ La base técnica fue la primera porque todas las demás dependen de ella. Cada p
 
 ## Persona 2 · CRUD completo de Libros (Carles) · ✅ unido a `develop` el 23 de octubre (PR #4)
 
-Rama: `feature/carles-crud-libros` · **Turno 1: del lunes 12 al lunes 19 de octubre** (pull request el lunes 19)
+Rama: `feature/carles-crud-libros` · **Turno 1: del lunes 12 al viernes 23 de octubre** (pull request y unión el viernes 23)
 
 Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y funcionando**.
 
@@ -80,8 +80,8 @@ Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y fun
 
 ## Persona 3 · Autores, Usuarios y diagrama E/R (Jacobo)
 
-Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ya** (borrador antes del jueves 15) ·
-**Turno 2 (pantallas): del martes 20 al viernes 23 de octubre** (pull request el viernes 23)
+Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ✅ unidos el 13 de octubre (PR #2)** ·
+**Turno 2 (pantallas): del viernes 23 al domingo 25 de octubre** (pull request el domingo 25)
 
 **Ficheros**: `service/AutorService.java`, `controller/AutorController.java`, `templates/autores/lista.html`,
 `templates/autores/detalle.html`, `service/UsuarioService.java`, `controller/UsuarioController.java`,
@@ -99,7 +99,7 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ya** (borrador antes del
 - [x] Modelo relacional: MySQL Workbench → *Database → Reverse Engineer* contra `localhost:3307`
       (usuario `biblioteca` / `biblioteca`) → `relacional.png` + `relacional.mwb` (PR #2).
 - [x] Los dos diagramas coinciden con `docs/modelo-datos.md`.
-- [ ] Tests MockMvc de los listados.
+- [ ] Tests MockMvc de los listados (6). Con ellos, `./mvnw verify` tiene que dar **43 tests**.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
 - [ ] Grabar su parte del vídeo: diagramas, autores y usuarios.
 - [ ] Memoria: enviar a Erick qué ha hecho (diagramas y pantallas) y sus dificultades (antes del viernes 30).
@@ -109,7 +109,7 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ya** (borrador antes del
 ## Persona 4 · Mockup y Préstamos (Antonio)
 
 Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15) ·
-**Turno 3 (préstamos): del viernes 23 al martes 27 de octubre** (pull request el martes 27)
+**Turno 3 (préstamos): del lunes 26 al martes 27 de octubre** (pull request el martes 27)
 
 **El mockup va primero** y no espera turno: sirve de guía a las vistas de los demás.
 
@@ -122,7 +122,7 @@ Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15)
   - filtro por estado → `GET /prestamos?estado=VENCIDO`
   - registrar la devolución → `POST /prestamos/{id}/devolver` (pone la fecha de hoy + mensaje)
   - extra si da tiempo: nuevo préstamo, solo con libros que tengan ejemplares disponibles
-- [ ] Tests MockMvc del listado y de la devolución.
+- [ ] Tests MockMvc del listado y de la devolución (4). Con ellos, `./mvnw verify` tiene que dar **47 tests**.
 - [ ] Grabar su parte del vídeo: mockup y préstamos.
 - [ ] Memoria: enviar a Erick qué ha hecho (mockup y préstamos) y sus dificultades (antes del viernes 30).
 
@@ -133,10 +133,10 @@ Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15)
 | Fecha | Qué | Quién |
 |---|---|---|
 | Domingo 11 oct | Base técnica en GitHub ✅ | Erick |
-| **Lunes 12 – lunes 19 oct** | **Turno 1**: CRUD de libros. El lunes 19, pull request y Erick la une | Carles |
-| **Jueves 15 oct** | Mockup terminado y borrador del diagrama E/R, enviados al grupo (no esperan turno) | Antonio, Jacobo |
-| **Martes 20 – viernes 23 oct** | **Turno 2**: autores y usuarios + diagramas finales. El viernes 23, pull request | Jacobo |
-| **Viernes 23 – martes 27 oct** | **Turno 3**: préstamos + mockup final. El martes 27, pull request | Antonio |
+| Lunes 12 – viernes 23 oct | **Turno 1**: CRUD de libros. Unido en `develop` el viernes 23 ✅ | Carles |
+| **Jueves 15 oct** | Mockup terminado y diagramas E/R y relacional (no esperan turno). Diagramas unidos el 13 ✅ | Antonio, Jacobo |
+| **Viernes 23 – domingo 25 oct** | **Turno 2**: autores y usuarios. El domingo 25, pull request | Jacobo |
+| **Lunes 26 – martes 27 oct** | **Turno 3**: préstamos + mockup final. El martes 27, pull request | Antonio |
 | **Miércoles 28 oct** | Congelación: todo en `develop` y pasado a `main`. Desde aquí, solo arreglos | Erick |
 | **Jueves 29 oct** | Cada uno graba su parte del vídeo y se la envía a Erick | Todos |
 | **Viernes 30 oct** | Erick une el vídeo y lo sube a YouTube. Cada uno envía a Erick lo de su parte para la memoria | Erick / todos |
