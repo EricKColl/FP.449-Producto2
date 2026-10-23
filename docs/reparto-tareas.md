@@ -46,7 +46,7 @@ La base técnica fue la primera porque todas las demás dependen de ella. Cada p
 
 ---
 
-## Persona 2 · CRUD completo de Libros (Carles)
+## Persona 2 · CRUD completo de Libros (Carles) · ✅ unido a `develop` el 23 de octubre (PR #4)
 
 Rama: `feature/carles-crud-libros` · **Turno 1: del lunes 12 al lunes 19 de octubre** (pull request el lunes 19)
 
@@ -65,13 +65,14 @@ Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y fun
 | Actualizar | `POST /libros/{id}` |
 | Eliminar, con confirmación | `POST /libros/{id}/eliminar` |
 
-- [ ] Formulario con validación (`@Valid` + `BindingResult`) y los errores bajo cada campo.
-- [ ] Selección múltiple de **autores** (es la relación N:M) con `th:field="*{autores}"`: Spring convierte los ids
+- [x] Formulario con validación (`@Valid` + `BindingResult`) y los errores bajo cada campo.
+- [x] Selección múltiple de **autores** (es la relación N:M) con `th:field="*{autores}"`: Spring convierte los ids
       marcados en objetos `Autor` (código completo en la guía, apartado 9).
-- [ ] ISBN duplicado → error en el campo (`findByIsbn`), no una excepción.
-- [ ] No permitir borrar un libro con préstamos (`prestamoRepository.existsByLibroId`) → `mensajeError`.
-- [ ] Mensajes flash de éxito al crear, editar y eliminar.
-- [ ] Tests MockMvc: listar, crear válido (redirige), crear inválido (vuelve al formulario), eliminar con préstamos.
+- [x] ISBN duplicado → error en el campo (`findByIsbn`), no una excepción.
+- [x] No permitir borrar un libro con préstamos (`prestamoRepository.existsByLibroId`) → `mensajeError`.
+- [x] Mensajes flash de éxito al crear, editar y eliminar.
+- [x] Tests MockMvc: 19 tests (listado y búsquedas, detalle, alta válida e inválida, ISBN repetido, edición,
+      borrado con y sin préstamos y rutas inexistentes).
 - [ ] Grabar su parte del vídeo: el CRUD de libros.
 - [ ] Memoria: enviar a Erick qué ha hecho y sus dificultades (antes del viernes 30).
 
