@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${libro.id == null} ? 'Nuevo libro' : 'Editar libro')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('libros')}"></nav>
+
+<main class="container py-4">
+  <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
+  <h1 class="h3 mb-3" th:text="${libro.id == null} ? 'Nuevo libro' : 'Editar libro'">Nuevo libro</h1>
+
+  <form class="card card-body" method="post" novalidate th:object="${libro}"
+     th:action="${libro.id == null} ? @{/libros} : @{/libros/{id}(id=${libro.id})}">
+    <div class="row g-3">
+      <div class="col-md-8">
+        <label for="titulo" class="form-label">Título *</label>
+        <input type="text" class="form-control" th:field="*{titulo}" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{titulo}">Error</div>
+      </div>
+      <div class="col-md-4">
+        <label for="isbn" class="form-label">ISBN *</label>
+        <input type="text" class="form-control" th:field="*{isbn}" th:errorclass="is-invalid"
+           placeholder="978-84-376-2405-1">
+        <div class="invalid-feedback" th:errors="*{isbn}">Error</div>
+      </div>
+      <div class="col-md-5">
+        <label for="editorial" class="form-label">Editorial</label>
+        <input type="text" class="form-control" th:field="*{editorial}" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{editorial}">Error</div>
+      </div>
+      <div class="col-md-3">
+        <label for="genero" class="form-label">Género</label>
+        <input type="text" class="form-control" th:field="*{genero}" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{genero}">Error</div>
+      </div>
+      <div class="col-6 col-md-2">
+        <label for="anioPublicacion" class="form-label">Año</label>
+        <input type="number" class="form-control" th:field="*{anioPublicacion}"
+           th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{anioPublicacion}">Error</div>
+      </div>
+      <div class="col-6 col-md-2">
+        <label for="ejemplares" class="form-label">Ejemplares *</label>
+        <input type="number" min="1" class="form-control" th:field="*{ejemplares}"
+           th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{ejemplares}">Error</div>
+      </div>
+      <div class="col-12">
+        <label for="autores" class="form-label">Autores *</label>
+        <select class="form-select" multiple size="6" th:field="*{autores}"
+            th:errorclass="is-invalid">
+          <option th:each="autor : ${todosLosAutores}" th:value="${autor.id}"
+              th:text="${autor.nombreCompleto}">Autor</option>
+        </select>
+        <div class="invalid-feedback" th:errors="*{autores}">Error</div>
+        <div class="form-text">Para elegir varios, mantén pulsada la tecla Ctrl (Cmd en Mac).</div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-check-lg"></i> Guardar
+      </button>
+      <a class="btn btn-outline-secondary"
+       th:href="${libro.id == null} ? @{/libros} : @{/libros/{id}(id=${libro.id})}">Cancelar</a>
+    </div>
+  </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
