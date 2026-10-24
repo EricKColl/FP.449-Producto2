@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${usuario.nombreCompleto})}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('usuarios')}"></nav>
+
+<main class="container py-4">
+  <a class="btn btn-link px-0 mb-2" th:href="@{/usuarios}">
+    <i class="bi bi-arrow-left"></i> Volver a usuarios
+  </a>
+  <h1 class="h3 mb-3" th:text="${usuario.nombreCompleto}">Usuario</h1>
+
+  <div class="row g-3">
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-4">DNI</dt>
+            <dd class="col-8" th:text="${usuario.dni}">DNI</dd>
+            <dt class="col-4">Email</dt>
+            <dd class="col-8 text-break" th:text="${usuario.email}">Email</dd>
+            <dt class="col-4">Teléfono</dt>
+            <dd class="col-8" th:text="${usuario.telefono} ?: '—'">Teléfono</dd>
+            <dt class="col-4">Alta</dt>
+            <dd class="col-8 mb-0"
+             th:text="${#temporals.format(usuario.fechaAlta, 'dd/MM/yyyy')}">01/01/2026</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="card">
+        <div class="card-header fw-semibold">Historial de préstamos</div>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead class="table-light">
+            <tr>
+              <th>Libro</th>
+              <th>Prestado</th>
+              <th>Devolución prevista</th>
+              <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prestamo : ${usuario.prestamos}">
+              <td>
+                <a th:href="@{/libros/{id}(id=${prestamo.libro.id})}"
+                 th:text="${prestamo.libro.titulo}">Libro</a>
+              </td>
+              <td th:text="${#temporals.format(prestamo.fechaPrestamo, 'dd/MM/yyyy')}">01/10/2026</td>
+              <td th:text="${#temporals.format(prestamo.fechaDevolucionPrevista, 'dd/MM/yyyy')}">15/10/2026</td>
+              <td><span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(usuario.prestamos)}">
+              <td colspan="4" class="text-center text-body-secondary py-4">
+                Este usuario todavía no ha tomado ningún libro en préstamo.
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

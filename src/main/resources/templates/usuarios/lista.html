@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Usuarios')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('usuarios')}"></nav>
+
+<main class="container py-4">
+  <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
+
+  <h1 class="h3 mb-3">Usuarios</h1>
+
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Alta</th>
+          <th class="text-end">Préstamos</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${usuarios}">
+          <td>
+            <a th:href="@{/usuarios/{id}(id=${usuario.id})}" th:text="${usuario.nombreCompleto}">Nombre</a>
+          </td>
+          <td th:text="${usuario.dni}">DNI</td>
+          <td th:text="${usuario.email}">Email</td>
+          <td th:text="${usuario.telefono} ?: '—'">Teléfono</td>
+          <td th:text="${#temporals.format(usuario.fechaAlta, 'dd/MM/yyyy')}">01/01/2026</td>
+          <td class="text-end">
+            <span class="badge text-bg-secondary" th:text="${#lists.size(usuario.prestamos)}">0</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

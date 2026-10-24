@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${autor.nombreCompleto})}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('autores')}"></nav>
+
+<main class="container py-4">
+  <a class="btn btn-link px-0 mb-2" th:href="@{/autores}">
+    <i class="bi bi-arrow-left"></i> Volver a autores
+  </a>
+  <h1 class="h3 mb-3" th:text="${autor.nombreCompleto}">Autor</h1>
+
+  <div class="row g-3">
+    <div class="col-lg-5 col-xl-4">
+      <div class="card">
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-6">Nacionalidad</dt>
+            <dd class="col-6" th:text="${autor.nacionalidad} ?: '—'">Nacionalidad</dd>
+            <dt class="col-6">Nacimiento</dt>
+            <dd class="col-6 mb-0" th:text="${autor.fechaNacimiento != null}
+              ? ${#temporals.format(autor.fechaNacimiento, 'dd/MM/yyyy')} : '—'">01/01/1900</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7 col-xl-8">
+      <div class="card">
+        <div class="card-header fw-semibold">Libros en el catálogo</div>
+        <div class="list-group list-group-flush">
+          <a class="list-group-item list-group-item-action"
+           th:each="libro : ${autor.libros}"
+           th:href="@{/libros/{id}(id=${libro.id})}">
+            <span th:text="${libro.titulo}">Título</span>
+            <span class="text-body-secondary small" th:if="${libro.anioPublicacion != null}"
+             th:text="|(${libro.anioPublicacion})|">(1900)</span>
+          </a>
+          <div class="list-group-item text-body-secondary" th:if="${#sets.isEmpty(autor.libros)}">
+            Este autor no tiene libros en el catálogo.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
