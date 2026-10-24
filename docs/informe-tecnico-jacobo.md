@@ -8,7 +8,7 @@
 
 **Rama:** `feature/jacobo-autores-usuarios`
 
-**Estado:** implementación obligatoria terminada, 43 tests correctos y revisión en navegador con MariaDB realizada. Pendiente de abrir la PR del código hacia `develop` y de revisión por Erick.
+**Estado:** implementación obligatoria terminada, 43 tests correctos y revisión en navegador con MariaDB realizada. Revisada por Erick e integrada en `develop` el 24 de octubre de 2026 mediante la PR #5.
 
 Este documento recoge la aportación de Jacobo y sirve de apoyo para la revisión y para redactar la memoria del equipo. Describe la implementación existente; la memoria y el vídeo de la entrega se montan posteriormente con la versión final del proyecto.
 
@@ -415,7 +415,7 @@ El informe se incorpora como un commit de documentación posterior a los commits
 | Seis tests propios y verificación del conjunto | Realizados; 43 tests correctos. |
 | Revisión en navegador contra MariaDB | Realizada con los casos del apartado 8. |
 | Documentación técnica de esta aportación | Recogida en este informe para revisión y uso en la memoria. |
-| PR del código y revisión por Erick | Pendientes al redactar el informe. |
+| PR del código y revisión por Erick | Integrada en `develop` mediante la PR #5. |
 | Capturas definitivas y montaje de la memoria | Pendientes de la versión final y la coordinación de Erick. |
 | Grabación de la parte de Jacobo | Pendiente para la fecha acordada por el equipo. |
 
