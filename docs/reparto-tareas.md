@@ -78,10 +78,10 @@ Es el criterio que más puntos asegura: el CRUD **tiene que estar completo y fun
 
 ---
 
-## Persona 3 · Autores, Usuarios y diagrama E/R (Jacobo)
+## Persona 3 · Autores, Usuarios y diagrama E/R (Jacobo) · ✅ unido a `develop` el 24 de octubre (PR #5)
 
 Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ✅ unidos el 13 de octubre (PR #2)** ·
-**Turno 2 (pantallas): del viernes 23 al domingo 25 de octubre** (pull request el domingo 25)
+**Turno 2 (pantallas): del viernes 23 al domingo 25 de octubre** (pull request y unión el sábado 24)
 
 **Ficheros**: `service/AutorService.java`, `controller/AutorController.java`, `templates/autores/lista.html`,
 `templates/autores/detalle.html`, `service/UsuarioService.java`, `controller/UsuarioController.java`,
@@ -99,10 +99,10 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ✅ unidos el 13 de octu
 - [x] Modelo relacional: MySQL Workbench → *Database → Reverse Engineer* contra `localhost:3307`
       (usuario `biblioteca` / `biblioteca`) → `relacional.png` + `relacional.mwb` (PR #2).
 - [x] Los dos diagramas coinciden con `docs/modelo-datos.md`.
-- [ ] Tests MockMvc de los listados (6). Con ellos, `./mvnw verify` tiene que dar **43 tests**.
+- [x] Tests MockMvc de los listados y las fichas (6): `./mvnw verify` da **43 tests**.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
 - [ ] Grabar su parte del vídeo: diagramas, autores y usuarios.
-- [ ] Memoria: enviar a Erick qué ha hecho (diagramas y pantallas) y sus dificultades (antes del viernes 30).
+- [x] Memoria: enviar a Erick qué ha hecho (diagramas y pantallas) y sus dificultades → `docs/informe-tecnico-jacobo.md`.
 
 ---
 
@@ -135,7 +135,7 @@ Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15)
 | Domingo 11 oct | Base técnica en GitHub ✅ | Erick |
 | Lunes 12 – viernes 23 oct | **Turno 1**: CRUD de libros. Unido en `develop` el viernes 23 ✅ | Carles |
 | **Jueves 15 oct** | Mockup terminado y diagramas E/R y relacional (no esperan turno). Diagramas unidos el 13 ✅ | Antonio, Jacobo |
-| **Viernes 23 – domingo 25 oct** | **Turno 2**: autores y usuarios. El domingo 25, pull request | Jacobo |
+| Viernes 23 – domingo 25 oct | **Turno 2**: autores y usuarios. Unido en `develop` el sábado 24 ✅ | Jacobo |
 | **Lunes 26 – martes 27 oct** | **Turno 3**: préstamos + mockup final. El martes 27, pull request | Antonio |
 | **Miércoles 28 oct** | Congelación: todo en `develop` y pasado a `main`. Desde aquí, solo arreglos | Erick |
 | **Jueves 29 oct** | Cada uno graba su parte del vídeo y se la envía a Erick | Todos |
