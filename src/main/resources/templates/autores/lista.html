@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Autores')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('autores')}"></nav>
+
+<main class="container py-4">
+  <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
+
+  <h1 class="h3 mb-3">Autores</h1>
+
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+        <tr>
+          <th>Autor</th>
+          <th>Nacionalidad</th>
+          <th>Fecha de nacimiento</th>
+          <th class="text-end">Libros</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="autor : ${autores}">
+          <td>
+            <a th:href="@{/autores/{id}(id=${autor.id})}" th:text="${autor.nombreCompleto}">Autor</a>
+          </td>
+          <td th:text="${autor.nacionalidad} ?: '—'">Nacionalidad</td>
+          <td th:text="${autor.fechaNacimiento != null}
+                ? ${#temporals.format(autor.fechaNacimiento, 'dd/MM/yyyy')} : '—'">01/01/1900</td>
+          <td class="text-end">
+            <span class="badge text-bg-secondary" th:text="${#sets.size(autor.libros)}">1</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
