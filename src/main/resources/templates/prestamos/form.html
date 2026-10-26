@@ -18,9 +18,13 @@
                 <label for="usuarioId" class="form-label">Usuario *</label>
                 <select id="usuarioId" name="usuarioId" class="form-select" required>
                     <option value="" disabled selected>Selecciona un usuario</option>
-                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
-                            th:text="${usuario.nombreCompleto}">Usuario</option>
+                    <option th:each="item : ${usuarios}" th:value="${item.usuario.id}"
+                            th:disabled="${!item.puedePedir}"
+                            th:text="${item.usuario.nombreCompleto} + (${item.puedePedir} ? '' : ' · ' + ${item.motivo})">Usuario</option>
                 </select>
+                <div class="form-text" th:text="|Máximo ${maxPrestamos} préstamos sin devolver por usuario y ninguno nuevo con préstamos vencidos.|">
+                    Máximo 3 préstamos sin devolver por usuario y ninguno nuevo con préstamos vencidos.
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="libroId" class="form-label">Libro *</label>
