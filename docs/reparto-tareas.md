@@ -39,7 +39,7 @@ La base técnica fue la primera porque todas las demás dependen de ella. Cada p
 - [ ] Revisar y fusionar las pull requests **en el orden de los turnos** y avisar en el grupo al fusionar cada una
       (es la señal para que empiece el turno siguiente). Mantener Docker funcionando.
 - [ ] Prueba final desde un clon limpio: `docker compose down -v && docker compose up -d --build`.
-- [ ] Grabar su parte del vídeo: presentación, Docker, Adminer, mockup en Figma e inicio; y el cierre.
+- [ ] Grabar su parte del vídeo: presentación, Docker, Adminer e inicio; y el cierre.
 - [ ] Unir los cortes de todos en un solo vídeo y subirlo a YouTube.
 - [ ] Memoria: montarla con lo que envíe cada uno (antes del viernes 30), poner el enlace del vídeo y exportar el PDF.
 - [ ] Preparar el ZIP de entrega.
@@ -129,7 +129,7 @@ para que coincida con lo que se ve en la versión final. Antonio se centra en lo
   - registrar la devolución → `POST /prestamos/{id}/devolver` (pone la fecha de hoy + mensaje)
   - [x] extra: nuevo préstamo (`GET /prestamos/nuevo` y `POST /prestamos`), solo con libros que tengan ejemplares disponibles
 - [x] Tests MockMvc del listado, la devolución y el alta (8): `./mvnw verify` da **51 tests**.
-- [ ] Grabar su parte del vídeo: préstamos (listado, filtro, nuevo préstamo con sus reglas y devolución).
+- [ ] Grabar su parte del vídeo: préstamos (listado, filtro, nuevo préstamo con sus reglas y devolución) y el mockup en Figma.
 - [ ] Memoria: enviar a Erick qué ha hecho (préstamos) y sus dificultades (antes del viernes 30).
 
 ---
@@ -190,10 +190,10 @@ la presentación al principio y el cierre al final.
 
 | Orden | Quién | Duración | Pantallas | Qué enseña |
 |---|---|---|---|---|
-| 1 | Erick | 1:30 | Docker, Adminer, Figma, Inicio | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Mockup en Figma (wireframe, guía de estilo y prototipo) comparado con la aplicación. Inicio «Sistema de Gestión»: tarjetas, estado de los préstamos, accesos rápidos y menú lateral. |
+| 1 | Erick | 1:30 | Docker, Adminer, Inicio | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Inicio «Sistema de Gestión»: tarjetas, estado de los préstamos, últimos préstamos, accesos rápidos y menú lateral. |
 | 2 | Carles | 2:00 | Libros | Buscar «tolkien». Crear con errores (título vacío, ISBN repetido `978-84-376-2405-1`, 0 ejemplares y ningún autor) y después bien: *Eva Luna*, ISBN `978-84-9759-243-7`, de Isabel Allende. Ver la ficha con el historial de préstamos. Editar (los autores salen marcados). Eliminar *Eva Luna* y ver que *Don Quijote de la Mancha* no se deja borrar porque tiene préstamos. |
 | 3 | Jacobo | 2:00 | Autores, Usuarios | Diagrama E/R y modelo relacional (la N:M de libros y autores y la entidad Préstamo). Autores: listado, ficha de Gabriel García Márquez con sus libros, alta de un autor y aviso al intentar borrar uno con libros. Usuarios: listado, ficha de Laura Martínez Soler con su historial, alta con un DNI repetido (`12345678Z`, sale el error) y después bien. |
-| 4 | Antonio | 2:00 | Préstamos | Listado con los estados en color y las pestañas (Activos, Vencidos, Devueltos). Nuevo préstamo: los libros sin ejemplares (*El señor de los anillos*) y los usuarios con préstamos fuera de plazo (Pablo Gómez Ruiz) no se pueden elegir; crear uno bien (Laura Martínez Soler, *1984*). Registrar una devolución y volver al Inicio: las cifras se actualizan. |
+| 4 | Antonio | 2:00 | Préstamos, Figma | Listado con los estados en color y las pestañas (Activos, Vencidos, Devueltos). Nuevo préstamo: los libros sin ejemplares (*El señor de los anillos*) y los usuarios con préstamos fuera de plazo (Pablo Gómez Ruiz) no se pueden elegir; crear uno bien (Laura Martínez Soler, *1984*). Registrar una devolución y volver al Inicio: las cifras se actualizan (1:20). Para acabar, el mockup en Figma (0:40): el wireframe con la navegación señalada, el prototipo con Play recorriendo las pantallas con las flechas ← y → y la guía de estilo. |
 | 5 | Erick | 0:30 | Móvil, tests | Cierre: la aplicación en el móvil (menú plegado), `./mvnw verify` con los 66 tests en verde y las comprobaciones automáticas de GitHub. |
 
 Cada parte empieza en la pantalla donde acaba la anterior, así los cortes se unen sin saltos. Si alguien se pasa de
