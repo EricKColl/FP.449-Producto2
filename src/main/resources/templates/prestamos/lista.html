@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Préstamos')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('prestamos')}"></nav>
+<main class="container py-4">
+    <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
+    <h1 class="h3 mb-3">Préstamos</h1>
+    <!-- Filtro por estado -->
+    <div class="btn-group flex-wrap mb-3" role="group" aria-label="Filtrar por estado">
+        <a class="btn btn-outline-primary" th:href="@{/prestamos}"
+           th:classappend="${estadoSeleccionado == null} ? 'active'">Todos</a>
+        <a class="btn btn-outline-primary" th:each="estado : ${estados}"
+           th:href="@{/prestamos(estado=${estado})}"
+           th:classappend="${estado == estadoSeleccionado} ? 'active'"
+           th:text="${estado.etiqueta} + 's'">Activos</a>
+    </div>
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                <tr>
+                    <th>Libro</th>
+                    <th>Usuario</th>
+                    <th>Prestado</th>
+                    <th>Devolución prevista</th>
+                    <th>Devuelto</th>
+                    <th>Estado</th><th class="text-end">Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="prestamo : ${prestamos}">
+                    <td>
+                        <a th:href="@{/libros/{id}(id=${prestamo.libro.id})}"
+                           th:text="${prestamo.libro.titulo}">Libro</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/usuarios/{id}(id=${prestamo.usuario.id})}"
+                           th:text="${prestamo.usuario.nombreCompleto}">Usuario</a>
+                    </td>
+                    <td th:text="${#temporals.format(prestamo.fechaPrestamo, 'dd/MM/yyyy')}">01/10/2026</td>
+                    <td th:text="${#temporals.format(prestamo.fechaDevolucionPrevista, 'dd/MM/yyyy')}">15/10/2026</td>
+                    <td th:text="${prestamo.devuelto}
+? ${#temporals.format(prestamo.fechaDevolucion, 'dd/MM/yyyy')} : '—'">—</td>
+                    <td><span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span></td>
+                    <td class="text-end">
+                        <form th:unless="${prestamo.devuelto}" method="post"
+                              th:action="@{/prestamos/{id}/devolver(id=${prestamo.id})}">
+                            <button class="btn btn-sm btn-outline-success text-nowrap" type="submit">
+                                <i class="bi bi-box-arrow-in-left"></i> Registrar devolución
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(prestamos)}">
+                    <td colspan="7" class="text-center text-body-secondary py-4">
+                        No hay préstamos con este estado.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
