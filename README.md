@@ -9,6 +9,7 @@ base de datos MariaDB, modelos con Spring Data JPA, controladores y vistas Thyme
 - 📄 [Enunciado y rúbrica](docs/enunciado.md)
 - 👥 [Reparto de tareas y calendario](docs/reparto-tareas.md)
 - 🗂️ [Modelo de datos (E/R y relacional)](docs/modelo-datos.md)
+- 🎨 [Mockup en Figma (wireframe, pantallas y guía de estilo)](https://www.figma.com/design/iGemzWYavhu4GhgD3aQQ0q)
 - 📐 [Guía de contribución y convenciones](CONTRIBUTING.md)
 
 ## Tecnologías
@@ -117,7 +118,7 @@ src/main/resources/
 ├── templates/      # vistas Thymeleaf (fragments/layout.html = cabecera, menú y pie comunes)
 ├── static/css/     # estilos propios
 └── application.properties, application-h2.properties
-docs/               # enunciado, reparto, modelo de datos, diagramas y mockups
+docs/               # enunciado, reparto, modelo de datos y diagramas
 ```
 
 ## Abrir el proyecto en IntelliJ IDEA

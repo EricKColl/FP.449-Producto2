@@ -18,7 +18,7 @@ conflictos al juntar el código. El mockup y los diagramas no esperan turno porq
 
 La base técnica fue la primera porque todas las demás dependen de ella. Cada parte de código lleva unas 8-10 horas.
 
-**El vídeo es de todo el equipo**: enseña el programa completo funcionando y **cada uno graba la parte que ha hecho**. Erick une los cortes en un solo vídeo (ver [Vídeo](#vídeo-6-8-min-cada-uno-graba-su-parte)).
+**El vídeo es de todo el equipo**: enseña el programa completo funcionando y **cada uno graba unos dos minutos**, siguiendo el orden del menú de la aplicación. Erick une los cortes en un solo vídeo (ver [Vídeo](#vídeo-8-min-cuatro-partes-de-2-min-en-el-orden-del-menú)).
 
 ---
 
@@ -39,7 +39,7 @@ La base técnica fue la primera porque todas las demás dependen de ella. Cada p
 - [ ] Revisar y fusionar las pull requests **en el orden de los turnos** y avisar en el grupo al fusionar cada una
       (es la señal para que empiece el turno siguiente). Mantener Docker funcionando.
 - [ ] Prueba final desde un clon limpio: `docker compose down -v && docker compose up -d --build`.
-- [ ] Grabar su parte del vídeo (presentación, Docker, Adminer y panel de inicio; y el cierre).
+- [ ] Grabar su parte del vídeo: presentación, Docker, Adminer, mockup en Figma e inicio; y el cierre.
 - [ ] Unir los cortes de todos en un solo vídeo y subirlo a YouTube.
 - [ ] Memoria: montarla con lo que envíe cada uno (antes del viernes 30), poner el enlace del vídeo y exportar el PDF.
 - [ ] Preparar el ZIP de entrega.
@@ -49,7 +49,9 @@ La base técnica fue la primera porque todas las demás dependen de ella. Cada p
       para moverla a `/admin` en el Producto 3. No se borra un autor con libros ni un usuario con préstamos.
 - [x] Reglas de préstamo: máximo 3 préstamos sin devolver por usuario y ninguno nuevo con préstamos vencidos.
 - [x] 15 tests nuevos: `./mvnw verify` da **66 tests**.
-- [ ] Mejora gráfica de la aplicación y mockup en Figma con el diseño final.
+- [x] Mejora gráfica de la aplicación: tema BackLord (negro y dorado), menú lateral e iconos Tabler con un tono joya por apartado.
+- [x] Mockup en Figma con el diseño final: [BACKLORD – Mockup Biblioteca](https://www.figma.com/design/iGemzWYavhu4GhgD3aQQ0q).
+      Wireframe anotado, 15 pantallas de alta fidelidad (escritorio y móvil) navegables como prototipo y guía de estilo.
 
 ---
 
@@ -108,7 +110,7 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ✅ unidos el 13 de octu
 - [x] Los dos diagramas coinciden con `docs/modelo-datos.md`.
 - [x] Tests MockMvc de los listados y las fichas (6): `./mvnw verify` da **43 tests**.
 - [ ] Extra si da tiempo: alta y edición de usuarios (mismo patrón que el CRUD de libros).
-- [ ] Grabar su parte del vídeo: diagramas, autores y usuarios.
+- [ ] Grabar su parte del vídeo: diagramas, autores y usuarios (listados, fichas, alta, edición y borrado).
 - [x] Memoria: enviar a Erick qué ha hecho (diagramas y pantallas) y sus dificultades → `docs/informe-tecnico-jacobo.md`.
 
 ---
@@ -120,17 +122,14 @@ Rama: `feature/antonio-mockup-prestamos` · **Turno 3 (préstamos): del lunes 26
 **Cambio del 24 de octubre:** el mockup lo hace Erick al final, en Figma, con el diseño de la mejora gráfica de la aplicación,
 para que coincida con lo que se ve en la versión final. Antonio se centra en los préstamos.
 
-- [ ] Mockup **(pasa a Erick)** en Figma, con el diseño final (Bootstrap, azul `#1f4e79`):
-  - panel de inicio · listado de libros · formulario de libro · detalle de libro · listado de usuarios · listado de préstamos
-  - **menú de navegación** en todas las pantallas y **botones** (nuevo, ver, editar, eliminar, volver, registrar devolución)
-  - exportar las pantallas a `docs/mockup/*.png`
+- [x] Mockup: **pasó a Erick**, hecho en Figma con el diseño final (ver la parte de Erick).
 - [x] Préstamos: `service/PrestamoService.java`, `controller/PrestamoController.java`, `templates/prestamos/lista.html`
   - listado con usuario, libro, fechas y **estado** con color (activo, vencido, devuelto) → `GET /prestamos`
   - filtro por estado → `GET /prestamos?estado=VENCIDO`
   - registrar la devolución → `POST /prestamos/{id}/devolver` (pone la fecha de hoy + mensaje)
   - [x] extra: nuevo préstamo (`GET /prestamos/nuevo` y `POST /prestamos`), solo con libros que tengan ejemplares disponibles
 - [x] Tests MockMvc del listado, la devolución y el alta (8): `./mvnw verify` da **51 tests**.
-- [ ] Grabar su parte del vídeo: préstamos (listado, filtro, devolución y nuevo préstamo).
+- [ ] Grabar su parte del vídeo: préstamos (listado, filtro, nuevo préstamo con sus reglas y devolución).
 - [ ] Memoria: enviar a Erick qué ha hecho (préstamos) y sus dificultades (antes del viernes 30).
 
 ---
@@ -182,18 +181,23 @@ para que coincida con lo que se ve en la versión final. Antonio se centra en lo
 4. Está fusionada en `develop` tras una revisión.
 5. Su autor ha enviado a Erick lo que ha hecho y sus dificultades para la memoria.
 
-## Vídeo (6-8 min): cada uno graba su parte
+## Vídeo (8 min): cuatro partes de 2 min en el orden del menú
 
-El vídeo enseña **todo el programa funcionando**. Cada persona graba **lo que ha hecho** y lo explica con su voz;
-después Erick une los cortes en un solo vídeo.
+El vídeo enseña **todo el programa funcionando** y recorre la aplicación en el mismo orden que el menú lateral:
+Inicio → Libros → Autores → Usuarios → Préstamos. Cada persona graba **unos 2 minutos** y los explica con su voz,
+empezando por lo que ha hecho; después Erick une los cortes en un solo vídeo. Erick parte su tiempo en dos trozos:
+la presentación al principio y el cierre al final.
 
-| Orden | Quién | Duración | Qué enseña |
-|---|---|---|---|
-| 1 | Erick | 1:30 | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Panel de inicio y menú de navegación. Mockup en Figma comparado con la aplicación. |
-| 2 | Carles | 2:00 | CRUD de libros: buscar, crear con un error de validación, crear bien, ver el detalle, editar (con los autores marcados) y eliminar (un libro sin préstamos y el bloqueo de uno con préstamos). |
-| 3 | Jacobo | 1:30 | Diagrama E/R y modelo relacional. Autores y usuarios: listados y detalles. |
-| 4 | Antonio | 1:30 | Préstamos: filtro por estado, nuevo préstamo (los libros sin ejemplares no se pueden elegir) y registrar una devolución; el panel de inicio se actualiza. |
-| 5 | Erick | 0:30 | Cierre: los tests en verde (`verify`) y las comprobaciones automáticas de GitHub. |
+| Orden | Quién | Duración | Pantallas | Qué enseña |
+|---|---|---|---|---|
+| 1 | Erick | 1:30 | Docker, Adminer, Figma, Inicio | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Mockup en Figma (wireframe, guía de estilo y prototipo) comparado con la aplicación. Inicio «Sistema de Gestión»: tarjetas, estado de los préstamos, accesos rápidos y menú lateral. |
+| 2 | Carles | 2:00 | Libros | Buscar «tolkien». Crear con errores (título vacío, ISBN repetido `978-84-376-2405-1`, 0 ejemplares y ningún autor) y después bien: *Eva Luna*, ISBN `978-84-9759-243-7`, de Isabel Allende. Ver la ficha con el historial de préstamos. Editar (los autores salen marcados). Eliminar *Eva Luna* y ver que *Don Quijote de la Mancha* no se deja borrar porque tiene préstamos. |
+| 3 | Jacobo | 2:00 | Autores, Usuarios | Diagrama E/R y modelo relacional (la N:M de libros y autores y la entidad Préstamo). Autores: listado, ficha de Gabriel García Márquez con sus libros, alta de un autor y aviso al intentar borrar uno con libros. Usuarios: listado, ficha de Laura Martínez Soler con su historial, alta con un DNI repetido (`12345678Z`, sale el error) y después bien. |
+| 4 | Antonio | 2:00 | Préstamos | Listado con los estados en color y las pestañas (Activos, Vencidos, Devueltos). Nuevo préstamo: los libros sin ejemplares (*El señor de los anillos*) y los usuarios con préstamos fuera de plazo (Pablo Gómez Ruiz) no se pueden elegir; crear uno bien (Laura Martínez Soler, *1984*). Registrar una devolución y volver al Inicio: las cifras se actualizan. |
+| 5 | Erick | 0:30 | Móvil, tests | Cierre: la aplicación en el móvil (menú plegado), `./mvnw verify` con los 66 tests en verde y las comprobaciones automáticas de GitHub. |
+
+Cada parte empieza en la pantalla donde acaba la anterior, así los cortes se unen sin saltos. Si alguien se pasa de
+2:15, que lo regrabe: el total no debe superar los 8 minutos.
 
 **Cómo grabar tu parte**
 
