@@ -109,6 +109,48 @@ class PrestamoControllerTest {
     }
 
     @Test
+    void noPrestaAUnUsuarioConPrestamosVencidos() throws Exception {
+        long antes = prestamoRepository.count();
+
+        // Javier (usuario 2) tiene sin devolver el préstamo 6, ya vencido
+        mockMvc.perform(post("/prestamos")
+                        .param("usuarioId", "2")
+                        .param("libroId", "14"))
+                .andExpect(redirectedUrl("/prestamos/nuevo"))
+                .andExpect(flash().attribute("mensajeError", containsString("tiene préstamos vencidos")));
+
+        assertThat(prestamoRepository.count()).isEqualTo(antes);
+    }
+
+    @Test
+    void noPasaDelMaximoDePrestamosAbiertos() throws Exception {
+        // Marta (usuario 3) tiene 1 préstamo abierto: llega a 3 con dos más y el cuarto se rechaza
+        for (String libro : new String[] {"6", "11"}) {
+            mockMvc.perform(post("/prestamos").param("usuarioId", "3").param("libroId", libro))
+                    .andExpect(flash().attributeExists("mensajeExito"));
+        }
+        long antes = prestamoRepository.count();
+
+        mockMvc.perform(post("/prestamos")
+                        .param("usuarioId", "3")
+                        .param("libroId", "14"))
+                .andExpect(redirectedUrl("/prestamos/nuevo"))
+                .andExpect(flash().attribute("mensajeError", containsString("ya tiene 3 préstamos sin devolver")));
+
+        assertThat(prestamoRepository.count()).isEqualTo(antes);
+    }
+
+    @Test
+    void elFormularioDesactivaLosUsuariosQueNoPuedenPedir() throws Exception {
+        mockMvc.perform(get("/prestamos/nuevo"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Javier López Ferrer · tiene préstamos vencidos")))
+                .andExpect(content().string(matchesPattern(
+                        "(?s).*<option value=\"2\"\\s+disabled=\"disabled\">Javier López Ferrer.*")))
+                .andExpect(content().string(not(containsString("Laura Martínez Soler ·"))));
+    }
+
+    @Test
     void elFormularioDesactivaLosLibrosSinEjemplares() throws Exception {
         // Libro 3 («La casa de los espíritus»): 1 ejemplar, ya prestado (préstamo 5)
         mockMvc.perform(get("/prestamos/nuevo"))

@@ -44,6 +44,13 @@ La base técnica fue la primera porque todas las demás dependen de ella. Cada p
 - [ ] Memoria: montarla con lo que envíe cada uno (antes del viernes 30), poner el enlace del vídeo y exportar el PDF.
 - [ ] Preparar el ZIP de entrega.
 
+**Extras (26 de octubre)**: con las cuatro partes unidas, para cerrar los «puntos no realizados» de la memoria:
+- [x] CRUD completo de **autores** y **usuarios** (alta, edición y borrado), con la escritura en controladores aparte
+      para moverla a `/admin` en el Producto 3. No se borra un autor con libros ni un usuario con préstamos.
+- [x] Reglas de préstamo: máximo 3 préstamos sin devolver por usuario y ninguno nuevo con préstamos vencidos.
+- [x] 15 tests nuevos: `./mvnw verify` da **66 tests**.
+- [ ] Mejora gráfica de la aplicación y mockup en Figma con el diseño final.
+
 ---
 
 ## Persona 2 · CRUD completo de Libros (Carles) · ✅ unido a `develop` el 23 de octubre (PR #4)

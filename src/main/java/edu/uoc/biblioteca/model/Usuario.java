@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ public class Usuario {
     @Column(length = 20)
     private String telefono;
 
+    // Formato de <input type="date"> en los formularios
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "La fecha de alta es obligatoria")
     @PastOrPresent(message = "La fecha de alta no puede ser futura")
     @Column(nullable = false)

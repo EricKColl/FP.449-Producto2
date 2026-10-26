@@ -19,6 +19,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class PrestamoService {
 
+    /** Préstamos sin devolver que puede tener a la vez un mismo usuario. */
+    public static final int MAX_PRESTAMOS_ABIERTOS = 3;
+
     private final PrestamoRepository prestamoRepository;
     private final LibroRepository libroRepository;
     private final UsuarioRepository usuarioRepository;
@@ -49,8 +52,11 @@ public class PrestamoService {
                         "No existe el préstamo " + id));
     }
 
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAllByOrderByApellidosAscNombreAsc();
+    /** Usuarios para el formulario de préstamo, indicando quién no puede llevarse otro libro y por qué. */
+    public List<UsuarioPrestatario> listarUsuariosPrestatarios() {
+        return usuarioRepository.findAllByOrderByApellidosAscNombreAsc().stream()
+                .map(this::comprobarUsuario)
+                .toList();
     }
 
     /** Catálogo para el formulario de préstamo, con los ejemplares libres de cada libro. */
@@ -68,6 +74,11 @@ public class PrestamoService {
         Libro libro = libroRepository.findById(libroId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "No existe el libro " + libroId));
+        UsuarioPrestatario prestatario = comprobarUsuario(usuario);
+        if (!prestatario.puedePedir()) {
+            throw new IllegalStateException(usuario.getNombreCompleto() + " no puede llevarse otro libro: "
+                    + prestatario.motivo());
+        }
         if (ejemplaresDisponibles(libro) <= 0) {
             throw new IllegalStateException(
                     "No quedan ejemplares disponibles de «" + libro.getTitulo() + "»");
@@ -83,6 +94,19 @@ public class PrestamoService {
         }
         prestamo.setFechaDevolucion(LocalDate.now());
         return prestamo;
+    }
+
+    // Reglas de la biblioteca: nada nuevo con préstamos vencidos y como mucho MAX_PRESTAMOS_ABIERTOS a la vez
+    private UsuarioPrestatario comprobarUsuario(Usuario usuario) {
+        long abiertos = prestamoRepository.countByUsuarioIdAndFechaDevolucionIsNull(usuario.getId());
+        String motivo = null;
+        if (prestamoRepository.existsByUsuarioIdAndFechaDevolucionIsNullAndFechaDevolucionPrevistaBefore(
+                usuario.getId(), LocalDate.now())) {
+            motivo = "tiene préstamos vencidos";
+        } else if (abiertos >= MAX_PRESTAMOS_ABIERTOS) {
+            motivo = "ya tiene " + MAX_PRESTAMOS_ABIERTOS + " préstamos sin devolver";
+        }
+        return new UsuarioPrestatario(usuario, abiertos, motivo);
     }
 
     private long ejemplaresDisponibles(Libro libro) {

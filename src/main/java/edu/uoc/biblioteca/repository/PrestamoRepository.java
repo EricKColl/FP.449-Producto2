@@ -25,4 +25,10 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
     boolean existsByLibroId(Long libroId);
 
     boolean existsByUsuarioId(Long usuarioId);
+
+    /** Préstamos sin devolver de un usuario. */
+    long countByUsuarioIdAndFechaDevolucionIsNull(Long usuarioId);
+
+    /** ¿Tiene el usuario algún préstamo sin devolver cuya fecha prevista ya pasó? */
+    boolean existsByUsuarioIdAndFechaDevolucionIsNullAndFechaDevolucionPrevistaBefore(Long usuarioId, LocalDate fecha);
 }
