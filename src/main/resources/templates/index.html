@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Inicio')}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: navbar('inicio')}"></nav>
@@ -7,49 +7,121 @@
 <main class="container py-4">
     <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
 
-    <div class="mb-4">
-        <h1 class="h3 mb-1">Panel de la biblioteca</h1>
-        <p class="text-body-secondary mb-0">Resumen del catálogo y de la actividad de préstamos.</p>
+    <div class="cabecera-panel">
+        <h1 class="titulo-panel">Sistema de Gestión</h1>
+        <a class="btn btn-primary" th:href="@{/prestamos/nuevo}">
+            <i class="bi bi-plus-lg"></i> Nuevo préstamo
+        </a>
+    </div>
+
+    <div class="row g-3 mb-3">
+        <div class="col-6 col-xl-3">
+            <a class="tarjeta-resumen" th:href="@{/libros}">
+                <span class="placa"><i class="bi bi-journal-bookmark"></i></span>
+                <p class="cifra" th:text="${resumen.libros}">14</p>
+                <p class="etiqueta">Libros en el catálogo</p>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="tarjeta-resumen" th:href="@{/autores}">
+                <span class="placa"><i class="bi bi-feather"></i></span>
+                <p class="cifra" th:text="${resumen.autores}">11</p>
+                <p class="etiqueta">Autores</p>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="tarjeta-resumen" th:href="@{/usuarios}">
+                <span class="placa"><i class="bi bi-people"></i></span>
+                <p class="cifra" th:text="${resumen.usuarios}">6</p>
+                <p class="etiqueta">Usuarios registrados</p>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a class="tarjeta-resumen" th:href="@{/prestamos}">
+                <span class="placa" th:classappend="${resumen.prestamosVencidos > 0} ? 'placa-alerta'">
+                    <i class="bi bi-arrow-left-right"></i>
+                </span>
+                <p class="cifra" th:text="${resumen.prestamosPendientes}">7</p>
+                <p class="etiqueta">Préstamos sin devolver</p>
+                <span class="aviso-vencidos" th:if="${resumen.prestamosVencidos > 0}"
+                      th:text="|${resumen.prestamosVencidos} vencidos|">2 vencidos</span>
+            </a>
+        </div>
     </div>
 
     <div class="row g-3">
-        <div class="col-sm-6 col-lg-3">
-            <a class="card tarjeta-resumen h-100" th:href="@{/libros}">
-                <div class="card-body">
-                    <i class="bi bi-journal-bookmark icono"></i>
-                    <p class="cifra" th:text="${resumen.libros}">14</p>
-                    <p class="etiqueta">Libros en el catálogo</p>
+        <div class="col-lg-8">
+            <section class="panel">
+                <div class="panel-titulo">
+                    <span>Estado de los préstamos</span>
+                    <span class="text-body-secondary" th:text="|${resumen.prestamosTotales} en total|">11 en total</span>
                 </div>
-            </a>
+                <div class="barra-estados" role="img"
+                     th:aria-label="|Activos ${resumen.prestamosActivos()}, fuera de plazo ${resumen.prestamosVencidos}, devueltos ${resumen.prestamosDevueltos()}|">
+                    <span class="tono-activo" th:style="|width: ${resumen.porcentaje(resumen.prestamosActivos())}%|"></span>
+                    <span class="tono-vencido" th:style="|width: ${resumen.porcentaje(resumen.prestamosVencidos)}%|"></span>
+                    <span class="tono-devuelto" th:style="|width: ${resumen.porcentaje(resumen.prestamosDevueltos())}%|"></span>
+                </div>
+                <div class="leyenda">
+                    <span><i class="tono-activo"></i>Activos <strong th:text="${resumen.prestamosActivos()}">5</strong></span>
+                    <span><i class="tono-vencido"></i>Fuera de plazo <strong th:text="${resumen.prestamosVencidos}">2</strong></span>
+                    <span><i class="tono-devuelto"></i>Devueltos <strong th:text="${resumen.prestamosDevueltos()}">4</strong></span>
+                </div>
+
+                <div class="panel-titulo mt-4 mb-2">
+                    <span>Últimos préstamos</span>
+                    <a class="small" th:href="@{/prestamos}">Ver todos</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Libro</th>
+                            <th>Usuario</th>
+                            <th>Prestado</th>
+                            <th>Estado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="prestamo : ${ultimos}">
+                            <td><a th:href="@{/libros/{id}(id=${prestamo.libro.id})}" th:text="${prestamo.libro.titulo}">Libro</a></td>
+                            <td><a th:href="@{/usuarios/{id}(id=${prestamo.usuario.id})}" th:text="${prestamo.usuario.nombreCompleto}">Usuario</a></td>
+                            <td class="text-nowrap" th:text="${#temporals.format(prestamo.fechaPrestamo, 'dd/MM/yyyy')}">01/10/2026</td>
+                            <td><span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span></td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(ultimos)}">
+                            <td colspan="4" class="text-center text-body-secondary py-4">Todavía no hay préstamos.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <a class="card tarjeta-resumen h-100" th:href="@{/autores}">
-                <div class="card-body">
-                    <i class="bi bi-feather icono"></i>
-                    <p class="cifra" th:text="${resumen.autores}">11</p>
-                    <p class="etiqueta">Autores</p>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <a class="card tarjeta-resumen h-100" th:href="@{/usuarios}">
-                <div class="card-body">
-                    <i class="bi bi-people icono"></i>
-                    <p class="cifra" th:text="${resumen.usuarios}">6</p>
-                    <p class="etiqueta">Usuarios registrados</p>
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <a class="card tarjeta-resumen h-100" th:href="@{/prestamos}">
-                <div class="card-body">
-                    <i class="bi bi-arrow-left-right icono"></i>
-                    <p class="cifra" th:text="${resumen.prestamosPendientes}">7</p>
-                    <p class="etiqueta">Préstamos sin devolver</p>
-                    <span class="badge text-bg-danger" th:if="${resumen.prestamosVencidos > 0}"
-                          th:text="|${resumen.prestamosVencidos} vencidos|">2 vencidos</span>
-                </div>
-            </a>
+
+        <div class="col-lg-4">
+            <section class="panel">
+                <div class="panel-titulo"><span>Accesos rápidos</span></div>
+                <a class="acceso" th:href="@{/prestamos/nuevo}">
+                    <span class="placa"><i class="bi bi-plus-lg"></i></span>
+                    <span>Nuevo préstamo<small>Libro y usuario, con plazo de 15 días</small></span>
+                </a>
+                <a class="acceso" th:href="@{/libros/nuevo}">
+                    <span class="placa"><i class="bi bi-journal-plus"></i></span>
+                    <span>Nuevo libro<small>Alta en el catálogo con sus autores</small></span>
+                </a>
+                <a class="acceso" th:href="@{/usuarios/nuevo}">
+                    <span class="placa"><i class="bi bi-person-plus"></i></span>
+                    <span>Nuevo usuario<small>Alta de un socio de la biblioteca</small></span>
+                </a>
+                <a class="acceso" th:href="@{/autores/nuevo}">
+                    <span class="placa"><i class="bi bi-feather"></i></span>
+                    <span>Nuevo autor<small>Para asignarlo después a sus libros</small></span>
+                </a>
+                <a class="acceso" th:href="@{/prestamos(estado='VENCIDO')}">
+                    <span class="placa placa-alerta"><i class="bi bi-alarm"></i></span>
+                    <span>Préstamos fuera de plazo<small>Para avisar a los usuarios</small></span>
+                </a>
+            </section>
         </div>
     </div>
 </main>

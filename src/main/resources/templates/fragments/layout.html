@@ -4,7 +4,7 @@
   Fragmentos comunes a todas las páginas. Plantilla mínima de una vista nueva:
 
   <!DOCTYPE html>
-  <html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{fragments/layout :: head('Libros')}"></head>
   <body>
   <nav th:replace="~{fragments/layout :: navbar('libros')}"></nav>
@@ -16,63 +16,75 @@
   </body>
   </html>
 
-  navbar(seccion) marca como activa la opción del menú: inicio | libros | autores | usuarios | prestamos
+  navbar(seccion) pinta el menú lateral y marca como activa la opción: inicio | libros | autores | usuarios | prestamos
+  data-bs-theme="dark" activa el modo oscuro de Bootstrap; los colores de BackLord están en css/estilos.css.
 -->
 
 <head th:fragment="head(titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
     <title th:text="${titulo} + ' · Biblioteca'">Biblioteca</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/fontsource__inter/400.css}">
+    <link rel="stylesheet" th:href="@{/webjars/fontsource__inter/500.css}">
+    <link rel="stylesheet" th:href="@{/webjars/fontsource__inter/600.css}">
+    <link rel="stylesheet" th:href="@{/webjars/fontsource__playfair-display/500.css}">
+    <link rel="stylesheet" th:href="@{/webjars/fontsource__playfair-display/600.css}">
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 
-<nav th:fragment="navbar(seccion)" class="navbar navbar-expand-lg navbar-dark navbar-biblioteca">
-    <div class="container">
-        <a class="navbar-brand fw-semibold" th:href="@{/}">
-            <i class="bi bi-book-half me-1"></i> Biblioteca
+<!-- Menú lateral fijo en escritorio; en pantallas pequeñas se abre desde la barra superior -->
+<th:block th:fragment="navbar(seccion)">
+    <header class="barra-movil d-lg-none">
+        <a class="marca" th:href="@{/}">
+            <span class="marca-icono"><i class="bi bi-book-half"></i></span>
+            <span class="marca-nombre">Biblioteca</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu-principal"
-                aria-controls="menu-principal" aria-expanded="false" aria-label="Mostrar menú">
-            <span class="navbar-toggler-icon"></span>
+        <button class="btn btn-icono" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu-lateral"
+                aria-controls="menu-lateral" aria-label="Mostrar menú">
+            <i class="bi bi-list"></i>
         </button>
-        <div class="collapse navbar-collapse" id="menu-principal">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" th:classappend="${seccion == 'inicio'} ? 'active'"
-                       th:aria-current="${seccion == 'inicio'} ? 'page'" th:href="@{/}">
-                        <i class="bi bi-house"></i> Inicio
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:classappend="${seccion == 'libros'} ? 'active'"
-                       th:aria-current="${seccion == 'libros'} ? 'page'" th:href="@{/libros}">
-                        <i class="bi bi-journal-bookmark"></i> Libros
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:classappend="${seccion == 'autores'} ? 'active'"
-                       th:aria-current="${seccion == 'autores'} ? 'page'" th:href="@{/autores}">
-                        <i class="bi bi-feather"></i> Autores
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:classappend="${seccion == 'usuarios'} ? 'active'"
-                       th:aria-current="${seccion == 'usuarios'} ? 'page'" th:href="@{/usuarios}">
-                        <i class="bi bi-people"></i> Usuarios
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:classappend="${seccion == 'prestamos'} ? 'active'"
-                       th:aria-current="${seccion == 'prestamos'} ? 'page'" th:href="@{/prestamos}">
-                        <i class="bi bi-arrow-left-right"></i> Préstamos
-                    </a>
-                </li>
-            </ul>
+    </header>
+
+    <aside class="offcanvas-lg offcanvas-start barra-lateral" tabindex="-1" id="menu-lateral" aria-label="Menú principal">
+        <div class="barra-lateral-cabecera">
+            <a class="marca" th:href="@{/}">
+                <span class="marca-icono"><i class="bi bi-book-half"></i></span>
+                <span>
+                    <span class="marca-nombre">Biblioteca</span>
+                    <span class="marca-grupo">BackLord</span>
+                </span>
+            </a>
+            <button type="button" class="btn-close d-lg-none" data-bs-dismiss="offcanvas"
+                    data-bs-target="#menu-lateral" aria-label="Cerrar menú"></button>
         </div>
-    </div>
-</nav>
+        <nav class="menu">
+            <a class="menu-enlace" th:classappend="${seccion == 'inicio'} ? 'active'"
+               th:aria-current="${seccion == 'inicio'} ? 'page'" th:href="@{/}">
+                <i class="bi bi-grid-1x2"></i> Inicio
+            </a>
+            <a class="menu-enlace" th:classappend="${seccion == 'libros'} ? 'active'"
+               th:aria-current="${seccion == 'libros'} ? 'page'" th:href="@{/libros}">
+                <i class="bi bi-journal-bookmark"></i> Libros
+            </a>
+            <a class="menu-enlace" th:classappend="${seccion == 'autores'} ? 'active'"
+               th:aria-current="${seccion == 'autores'} ? 'page'" th:href="@{/autores}">
+                <i class="bi bi-feather"></i> Autores
+            </a>
+            <a class="menu-enlace" th:classappend="${seccion == 'usuarios'} ? 'active'"
+               th:aria-current="${seccion == 'usuarios'} ? 'page'" th:href="@{/usuarios}">
+                <i class="bi bi-people"></i> Usuarios
+            </a>
+            <a class="menu-enlace" th:classappend="${seccion == 'prestamos'} ? 'active'"
+               th:aria-current="${seccion == 'prestamos'} ? 'page'" th:href="@{/prestamos}">
+                <i class="bi bi-arrow-left-right"></i> Préstamos
+            </a>
+        </nav>
+        <div class="barra-lateral-pie">FP065 · UOC</div>
+    </aside>
+</th:block>
 
 <!-- Mensajes flash: redirectAttributes.addFlashAttribute("mensajeExito" | "mensajeError", "...") -->
 <th:block th:fragment="alertas">
@@ -88,13 +100,13 @@
 
 <!-- Estado de un préstamo con su color:
      <span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span> -->
-<span th:fragment="estadoPrestamo(prestamo)" class="badge"
-      th:classappend="${prestamo.estado.name() == 'VENCIDO'} ? 'text-bg-danger'
-                      : (${prestamo.devuelto} ? 'text-bg-success' : 'text-bg-primary')"
+<span th:fragment="estadoPrestamo(prestamo)" class="estado"
+      th:classappend="${prestamo.estado.name() == 'VENCIDO'} ? 'estado-vencido'
+                      : (${prestamo.devuelto} ? 'estado-devuelto' : 'estado-activo')"
       th:text="${prestamo.estado.etiqueta}">Activo</span>
 
-<footer th:fragment="footer" class="pie border-top">
-    <div class="container py-3 small text-body-secondary d-flex justify-content-between flex-wrap gap-2">
+<footer th:fragment="footer" class="pie">
+    <div class="container py-3 small d-flex justify-content-between flex-wrap gap-2">
         <span>FP065 · UOC · Proyecto Biblioteca</span>
         <span>Erick Coll · Carles Miguel · Jacobo Barrera · Antonio Charneco</span>
     </div>
