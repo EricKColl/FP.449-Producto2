@@ -69,6 +69,10 @@ de clase y `@Transactional` en los métodos que escriben. No se usa Lombok.
 
 Id inexistente → `throw new ResponseStatusException(HttpStatus.NOT_FOUND, "...")` (se muestra `error.html`).
 
+**Escritura separada**: en autores y usuarios, las rutas que crean, modifican o borran están en su propio controlador
+(`AutorAdminController`, `UsuarioAdminController`) y las consultas en el de siempre. En el Producto 3 (Spring Security)
+esos controladores pasarán a `/admin/...`, que es donde la rúbrica pide todas las operaciones de escritura.
+
 **Vistas**: cada página usa los fragmentos de `fragments/layout.html` (hay una plantilla mínima en su comentario):
 `head('Título')`, `navbar('libros'|'autores'|'usuarios'|'prestamos'|'inicio')`, `alertas` y `footer`.
 Componentes de Bootstrap 5 (tablas `table table-hover`, `card`, `btn btn-primary`, `badge`, `form-control`,
