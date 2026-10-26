@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -41,6 +42,8 @@ public class Autor {
     @Column(length = 60)
     private String nacionalidad;
 
+    // Formato de <input type="date"> en los formularios
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Past(message = "La fecha de nacimiento debe ser anterior a hoy")
     private LocalDate fechaNacimiento;
 

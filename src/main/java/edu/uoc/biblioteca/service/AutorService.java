@@ -28,4 +28,32 @@ public class AutorService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "No existe el autor " + id));
     }
+
+    @Transactional
+    public Autor crear(Autor autor) {
+        autor.setId(null);
+        return autorRepository.save(autor);
+    }
+
+    @Transactional
+    public Autor actualizar(Long id, Autor datos) {
+        Autor autor = buscarPorId(id);
+        autor.setNombre(datos.getNombre());
+        autor.setApellidos(datos.getApellidos());
+        autor.setNacionalidad(datos.getNacionalidad());
+        autor.setFechaNacimiento(datos.getFechaNacimiento());
+        return autor;
+    }
+
+    /** Un autor con libros no se borra: cada libro del catálogo debe conservar al menos un autor. */
+    @Transactional
+    public Autor eliminar(Long id) {
+        Autor autor = buscarPorId(id);
+        if (!autor.getLibros().isEmpty()) {
+            throw new IllegalStateException("No se puede eliminar a " + autor.getNombreCompleto()
+                    + " porque tiene libros en el catálogo");
+        }
+        autorRepository.delete(autor);
+        return autor;
+    }
 }
