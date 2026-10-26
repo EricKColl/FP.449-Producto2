@@ -18,7 +18,7 @@ base de datos MariaDB, modelos con Spring Data JPA, controladores y vistas Thyme
 | Java (Eclipse Temurin) | 21 LTS |
 | Spring Boot | 4.1.1 (Web MVC, Thymeleaf, Data JPA, Validation, Actuator) |
 | Base de datos | MariaDB 11.8 (H2 en memoria para los tests) |
-| Interfaz | Thymeleaf + Bootstrap 5.3 + Bootstrap Icons (WebJars) |
+| Interfaz | Thymeleaf + Bootstrap 5.3 + Tabler Icons + fuentes Inter y Playfair Display (WebJars) |
 | Gestión del proyecto | Maven (wrapper incluido) |
 | Contenedores | Docker y Docker Compose |
 

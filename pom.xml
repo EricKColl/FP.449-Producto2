@@ -16,7 +16,9 @@
 	<properties>
 		<java.version>21</java.version>
 		<bootstrap.version>5.3.8</bootstrap.version>
-		<bootstrap-icons.version>1.13.1</bootstrap-icons.version>
+		<tabler-icons.version>3.28.1</tabler-icons.version>
+		<inter.version>5.2.5</inter.version>
+		<playfair-display.version>4.2.2</playfair-display.version>
 	</properties>
 	<dependencies>
 		<!-- Web y vistas -->
@@ -66,10 +68,22 @@
 			<artifactId>bootstrap</artifactId>
 			<version>${bootstrap.version}</version>
 		</dependency>
+		<!-- Iconos de la interfaz (Tabler Icons, fuente web) -->
 		<dependency>
 			<groupId>org.webjars.npm</groupId>
-			<artifactId>bootstrap-icons</artifactId>
-			<version>${bootstrap-icons.version}</version>
+			<artifactId>tabler__icons-webfont</artifactId>
+			<version>${tabler-icons.version}</version>
+		</dependency>
+		<!-- Tipografías del diseño (Inter para el texto y Playfair Display para los títulos) -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>fontsource__inter</artifactId>
+			<version>${inter.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>fontsource__playfair-display</artifactId>
+			<version>${playfair-display.version}</version>
 		</dependency>
 
 		<dependency>

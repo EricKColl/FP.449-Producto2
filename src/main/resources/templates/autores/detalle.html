@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head(${autor.nombreCompleto})}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: navbar('autores')}"></nav>
@@ -8,19 +8,19 @@
   <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
 
   <a class="btn btn-link px-0 mb-2" th:href="@{/autores}">
-    <i class="bi bi-arrow-left"></i> Volver a autores
+    <i class="ti ti-arrow-left"></i> Volver a autores
   </a>
   <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
     <h1 class="h3 mb-0" th:text="${autor.nombreCompleto}">Autor</h1>
     <div class="d-flex gap-2">
       <a class="btn btn-outline-primary" th:href="@{/autores/{id}/editar(id=${autor.id})}">
-        <i class="bi bi-pencil"></i> Editar
+        <i class="ti ti-pencil"></i> Editar
       </a>
       <form method="post" th:action="@{/autores/{id}/eliminar(id=${autor.id})}"
          th:data-nombre="${autor.nombreCompleto}"
          onsubmit="return confirm('¿Eliminar a «' + this.dataset.nombre + '»?')">
         <button class="btn btn-outline-danger" type="submit">
-          <i class="bi bi-trash"></i> Eliminar
+          <i class="ti ti-trash"></i> Eliminar
         </button>
       </form>
     </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head(${libro.id == null} ? 'Nuevo libro' : 'Editar libro')}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: navbar('libros')}"></nav>
@@ -58,7 +58,7 @@
 
     <div class="d-flex gap-2 mt-4">
       <button type="submit" class="btn btn-primary">
-        <i class="bi bi-check-lg"></i> Guardar
+        <i class="ti ti-check"></i> Guardar
       </button>
       <a class="btn btn-outline-secondary"
        th:href="${libro.id == null} ? @{/libros} : @{/libros/{id}(id=${libro.id})}">Cancelar</a>

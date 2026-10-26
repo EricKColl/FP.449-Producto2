@@ -17,6 +17,7 @@ public class InicioController {
     @GetMapping("/")
     public String inicio(Model model) {
         model.addAttribute("resumen", panelService.obtenerResumen());
+        model.addAttribute("ultimos", panelService.ultimosPrestamos());
         return "index";
     }
 }

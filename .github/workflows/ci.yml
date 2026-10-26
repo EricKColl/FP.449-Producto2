@@ -29,7 +29,7 @@ jobs:
       - name: Comprobar que la aplicación responde con datos
         run: |
           curl -fsS http://localhost:8080/actuator/health
-          curl -fsS http://localhost:8080/ | grep -q 'Panel de la biblioteca'
+          curl -fsS http://localhost:8080/ | grep -q 'Sistema de Gestión'
       - name: Logs
         if: failure()
         run: docker compose logs

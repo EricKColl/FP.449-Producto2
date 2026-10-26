@@ -29,7 +29,7 @@ class InicioControllerTest {
 
     @Test
     void inicioMuestraElPanelConLasCifras() throws Exception {
-        given(panelService.obtenerResumen()).willReturn(new ResumenPanel(14, 11, 6, 7, 2));
+        given(panelService.obtenerResumen()).willReturn(new ResumenPanel(14, 11, 6, 7, 2, 11));
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
@@ -43,7 +43,7 @@ class InicioControllerTest {
 
     @Test
     void sinPrestamosVencidosNoSeMuestraElAviso() throws Exception {
-        given(panelService.obtenerResumen()).willReturn(new ResumenPanel(14, 11, 6, 5, 0));
+        given(panelService.obtenerResumen()).willReturn(new ResumenPanel(14, 11, 6, 5, 0, 9));
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())

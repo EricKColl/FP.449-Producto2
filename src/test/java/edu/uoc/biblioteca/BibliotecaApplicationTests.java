@@ -36,7 +36,7 @@ class BibliotecaApplicationTests {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("resumen"))
                 .andExpect(content().string(allOf(
-                        containsString("Panel de la biblioteca"),
+                        containsString("Sistema de Gestión"),
                         containsString("2 vencidos"))));
     }
 
