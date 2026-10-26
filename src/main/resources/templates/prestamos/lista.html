@@ -5,7 +5,12 @@
 <nav th:replace="~{fragments/layout :: navbar('prestamos')}"></nav>
 <main class="container py-4">
     <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
-    <h1 class="h3 mb-3">Préstamos</h1>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Préstamos</h1>
+        <a class="btn btn-primary" th:href="@{/prestamos/nuevo}">
+            <i class="bi bi-plus-lg"></i> Nuevo préstamo
+        </a>
+    </div>
     <!-- Filtro por estado -->
     <div class="btn-group flex-wrap mb-3" role="group" aria-label="Filtrar por estado">
         <a class="btn btn-outline-primary" th:href="@{/prestamos}"

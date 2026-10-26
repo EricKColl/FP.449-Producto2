@@ -59,4 +59,39 @@ class PrestamoControllerTest {
                 .andExpect(redirectedUrl("/prestamos"))
                 .andExpect(flash().attributeExists("mensajeError"));
     }
+    @Test
+    void muestraElFormularioDeNuevoPrestamo() throws Exception {
+        mockMvc.perform(get("/prestamos/nuevo"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("prestamos/form"))
+                .andExpect(content().string(containsString("Laura Martínez Soler")))
+                .andExpect(content().string(containsString("El hobbit")));
+    }
+
+    @Test
+    void creaUnPrestamoDeUnLibroDisponible() throws Exception {
+        long antes = prestamoRepository.count();
+
+        mockMvc.perform(post("/prestamos")
+                        .param("usuarioId", "1")
+                        .param("libroId", "14"))
+                .andExpect(redirectedUrl("/prestamos"))
+                .andExpect(flash().attributeExists("mensajeExito"));
+
+        assertThat(prestamoRepository.count()).isEqualTo(antes + 1);
+    }
+
+    @Test
+    void noPrestaUnLibroSinEjemplaresDisponibles() throws Exception {
+        long antes = prestamoRepository.count();
+
+        // Libro 3: 1 ejemplar, ya prestado (préstamo 5)
+        mockMvc.perform(post("/prestamos")
+                        .param("usuarioId", "1")
+                        .param("libroId", "3"))
+                .andExpect(redirectedUrl("/prestamos/nuevo"))
+                .andExpect(flash().attributeExists("mensajeError"));
+
+        assertThat(prestamoRepository.count()).isEqualTo(antes);
+    }
 }

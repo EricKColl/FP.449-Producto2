@@ -37,4 +37,26 @@ public class PrestamoController {
         }
         return "redirect:/prestamos";
     }
+    @GetMapping("/nuevo")
+    public String nuevo(Model model) {
+        model.addAttribute("usuarios", prestamoService.listarUsuarios());
+        model.addAttribute("libros", prestamoService.listarLibros());
+        return "prestamos/form";
+    }
+
+    @PostMapping
+    public String crear(@RequestParam Long usuarioId,
+                        @RequestParam Long libroId,
+                        RedirectAttributes redirectAttributes) {
+        try {
+            Prestamo prestamo = prestamoService.crear(usuarioId, libroId);
+            redirectAttributes.addFlashAttribute("mensajeExito",
+                    "Préstamo registrado: «" + prestamo.getLibro().getTitulo() + "»");
+            return "redirect:/prestamos";
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("mensajeError", e.getMessage());
+            return "redirect:/prestamos/nuevo";
+        }
+    }
+
 }
