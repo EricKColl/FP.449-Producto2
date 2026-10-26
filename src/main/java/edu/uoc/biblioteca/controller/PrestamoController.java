@@ -34,7 +34,8 @@ public class PrestamoController {
     // Formulario de nuevo préstamo
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
-        model.addAttribute("usuarios", prestamoService.listarUsuarios());
+        model.addAttribute("usuarios", prestamoService.listarUsuariosPrestatarios());
+        model.addAttribute("maxPrestamos", PrestamoService.MAX_PRESTAMOS_ABIERTOS);
         model.addAttribute("libros", prestamoService.listarLibrosConDisponibles());
         return "prestamos/form";
     }
