@@ -13,7 +13,7 @@ léelas antes de empezar tu parte para que todas las pantallas se vean y funcion
 ## Stack
 
 Java 21 · Spring Boot 4.1.1 (`spring-boot-starter-webmvc`, `-thymeleaf`, `-data-jpa`, `-validation`, `-actuator`)
-· MariaDB 11.8 · H2 (tests y perfil `h2`) · Bootstrap 5.3 + Bootstrap Icons como WebJars · Maven Wrapper.
+· MariaDB 11.8 · H2 (tests y perfil `h2`) · Bootstrap 5.3, Tabler Icons y las fuentes Inter y Playfair Display como WebJars · Maven Wrapper.
 
 Spring Boot 4 tiene paquetes de test distintos a los de la versión 3:
 `org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest`,
@@ -76,7 +76,7 @@ esos controladores pasarán a `/admin/...`, que es donde la rúbrica pide todas 
 **Vistas**: cada página usa los fragmentos de `fragments/layout.html` (hay una plantilla mínima en su comentario):
 `head('Título')`, `navbar('libros'|'autores'|'usuarios'|'prestamos'|'inicio')`, `alertas` y `footer`.
 Componentes de Bootstrap 5 (tablas `table table-hover`, `card`, `btn btn-primary`, `badge`, `form-control`,
-`is-invalid` + `invalid-feedback`) e iconos `bi bi-*`. Nada de CSS ni JS por CDN: todo sale de los WebJars.
+`is-invalid` + `invalid-feedback`) e iconos `ti ti-*` (Tabler). Los colores del tema están en `css/estilos.css`. Nada de CSS ni JS por CDN: todo sale de los WebJars.
 No se añade CSS propio en cada vista: solo clases de Bootstrap. Si hace falta un estilo nuevo, se pide a Erick.
 
 - Estado de un préstamo con su color: `<span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span>`.

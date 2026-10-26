@@ -8,19 +8,19 @@
   <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
 
   <a class="btn btn-link px-0 mb-2" th:href="@{/usuarios}">
-    <i class="bi bi-arrow-left"></i> Volver a usuarios
+    <i class="ti ti-arrow-left"></i> Volver a usuarios
   </a>
   <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
     <h1 class="h3 mb-0" th:text="${usuario.nombreCompleto}">Usuario</h1>
     <div class="d-flex gap-2">
       <a class="btn btn-outline-primary" th:href="@{/usuarios/{id}/editar(id=${usuario.id})}">
-        <i class="bi bi-pencil"></i> Editar
+        <i class="ti ti-pencil"></i> Editar
       </a>
       <form method="post" th:action="@{/usuarios/{id}/eliminar(id=${usuario.id})}"
          th:data-nombre="${usuario.nombreCompleto}"
          onsubmit="return confirm('¿Eliminar a «' + this.dataset.nombre + '»?')">
         <button class="btn btn-outline-danger" type="submit">
-          <i class="bi bi-trash"></i> Eliminar
+          <i class="ti ti-trash"></i> Eliminar
         </button>
       </form>
     </div>

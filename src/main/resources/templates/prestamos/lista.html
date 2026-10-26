@@ -6,10 +6,10 @@
 
 <main class="container py-4">
     <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">Préstamos</h1>
+    <div class="cabecera-panel">
+        <h1 class="titulo-panel">Préstamos</h1>
         <a class="btn btn-primary" th:href="@{/prestamos/nuevo}">
-            <i class="bi bi-plus-lg"></i> Nuevo préstamo
+            <i class="ti ti-plus"></i> Nuevo préstamo
         </a>
     </div>
     <!-- Filtro por estado -->
@@ -54,7 +54,7 @@
                         <form th:unless="${prestamo.devuelto}" method="post"
                               th:action="@{/prestamos/{id}/devolver(id=${prestamo.id})}">
                             <button class="btn btn-sm btn-outline-success text-nowrap" type="submit">
-                                <i class="bi bi-box-arrow-in-left"></i> Registrar devolución
+                                <i class="ti ti-arrow-back-up"></i> Registrar devolución
                             </button>
                         </form>
                     </td>

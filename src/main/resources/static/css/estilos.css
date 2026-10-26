@@ -116,16 +116,12 @@ a {
 }
 
 .marca-icono {
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
-    border-radius: 11px;
-    display: grid;
-    place-items: center;
-    font-size: 1.25rem;
-    color: #1a1405;
-    background: var(--degradado-oro);
-    box-shadow: 0 0 0 1px rgba(240, 212, 138, 0.35), 0 6px 18px rgba(212, 169, 74, 0.18);
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(240, 212, 138, 0.45), 0 6px 18px rgba(212, 169, 74, 0.25);
 }
 
 .marca-nombre {
@@ -167,7 +163,7 @@ a {
 }
 
 .menu-enlace i {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     width: 1.25rem;
     text-align: center;
 }
@@ -209,7 +205,7 @@ a {
     width: 34px;
     height: 34px;
     flex-basis: 34px;
-    font-size: 1.05rem;
+    border-radius: 9px;
 }
 
 .btn-icono {
@@ -225,36 +221,38 @@ a {
 
 /* --- Panel de inicio --- */
 .cabecera-panel {
-    position: relative;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    gap: 1rem;
     min-height: 3rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
 }
 
+/* El título se centra en el espacio que queda entre el menú lateral y el botón de la derecha */
 .cabecera-panel .titulo-panel {
-    position: absolute;
-    left: 0;
-    right: 12rem;
+    flex: 1 1 auto;
     margin: 0;
     text-align: center;
-    font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    color: var(--bs-heading-color);
+}
+
+.cabecera-panel .titulo-oro {
+    font-size: clamp(1.8rem, 2.8vw, 2.4rem);
     background: var(--degradado-oro);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
+.cabecera-panel > .btn {
+    flex: 0 0 auto;
+}
+
 @media (max-width: 575.98px) {
     .cabecera-panel {
         flex-direction: column;
         align-items: stretch;
-        gap: 1rem;
-    }
-
-    .cabecera-panel .titulo-panel {
-        position: static;
     }
 }
 
@@ -298,11 +296,23 @@ a {
     border-radius: 12px;
     display: grid;
     place-items: center;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: var(--oro-claro);
     background: var(--oro-fondo);
     border: 1px solid rgba(212, 169, 74, 0.38);
     margin-bottom: 0.9rem;
+    transition: box-shadow 0.18s ease;
+}
+
+/* Tonos joya por apartado: libros ámbar, autores amatista, usuarios zafiro, préstamos esmeralda */
+.joya-ambar { color: #f5b871; background: #2a1a0e; border-color: rgba(208, 138, 58, 0.6); }
+.joya-amatista { color: #c9a8f5; background: #21142e; border-color: rgba(138, 92, 208, 0.6); }
+.joya-zafiro { color: #9cbcf2; background: #0f1c2e; border-color: rgba(74, 123, 208, 0.6); }
+.joya-esmeralda { color: #86cfa6; background: #0f2219; border-color: rgba(62, 154, 110, 0.6); }
+
+.tarjeta-resumen:hover .placa,
+.acceso:hover .placa {
+    box-shadow: 0 0 18px -4px currentColor;
 }
 
 .placa-alerta {
@@ -412,9 +422,9 @@ a {
 }
 
 .acceso .placa {
-    width: 36px;
-    height: 36px;
-    font-size: 1.05rem;
+    width: 38px;
+    height: 38px;
+    font-size: 1.25rem;
     margin: 0;
 }
 

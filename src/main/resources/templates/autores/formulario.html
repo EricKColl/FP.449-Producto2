@@ -36,7 +36,7 @@
 
     <div class="d-flex gap-2 mt-4">
       <button type="submit" class="btn btn-primary">
-        <i class="bi bi-check-lg"></i> Guardar
+        <i class="ti ti-check"></i> Guardar
       </button>
       <a class="btn btn-outline-secondary"
        th:href="${autor.id == null} ? @{/autores} : @{/autores/{id}(id=${autor.id})}">Cancelar</a>

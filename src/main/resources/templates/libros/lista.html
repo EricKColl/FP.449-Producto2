@@ -7,10 +7,10 @@
 <main class="container py-4">
   <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
 
-  <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
-    <h1 class="h3 mb-0">Libros</h1>
+  <div class="cabecera-panel">
+    <h1 class="titulo-panel">Libros</h1>
     <a class="btn btn-primary" th:href="@{/libros/nuevo}">
-      <i class="bi bi-plus-lg"></i> Nuevo libro
+      <i class="ti ti-plus"></i> Nuevo libro
     </a>
   </div>
 
@@ -19,7 +19,7 @@
       <input class="form-control" type="search" aria-label="Buscar por título, ISBN o autor" name="q" th:value="${q}"
          placeholder="Buscar por título, ISBN o autor">
       <button class="btn btn-outline-secondary" type="submit">
-        <i class="bi bi-search"></i> Buscar
+        <i class="ti ti-search"></i> Buscar
       </button>
     </div>
   </form>
@@ -47,14 +47,14 @@
           <td class="text-end text-nowrap">
             <a class="btn btn-sm btn-outline-primary" title="Editar"
              th:href="@{/libros/{id}/editar(id=${libro.id})}">
-              <i class="bi bi-pencil"></i>
+              <i class="ti ti-pencil"></i>
             </a>
             <form class="d-inline" method="post"
                th:action="@{/libros/{id}/eliminar(id=${libro.id})}"
                th:data-titulo="${libro.titulo}"
                onsubmit="return confirm('¿Eliminar «' + this.dataset.titulo + '»?')">
               <button class="btn btn-sm btn-outline-danger" type="submit" title="Eliminar">
-                <i class="bi bi-trash"></i>
+                <i class="ti ti-trash"></i>
               </button>
             </form>
           </td>
