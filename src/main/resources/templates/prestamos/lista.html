@@ -3,6 +3,7 @@
 <head th:replace="~{fragments/layout :: head('Préstamos')}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: navbar('prestamos')}"></nav>
+
 <main class="container py-4">
     <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -30,7 +31,8 @@
                     <th>Prestado</th>
                     <th>Devolución prevista</th>
                     <th>Devuelto</th>
-                    <th>Estado</th><th class="text-end">Acción</th>
+                    <th>Estado</th>
+                    <th class="text-end">Acción</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,7 +48,7 @@
                     <td th:text="${#temporals.format(prestamo.fechaPrestamo, 'dd/MM/yyyy')}">01/10/2026</td>
                     <td th:text="${#temporals.format(prestamo.fechaDevolucionPrevista, 'dd/MM/yyyy')}">15/10/2026</td>
                     <td th:text="${prestamo.devuelto}
-? ${#temporals.format(prestamo.fechaDevolucion, 'dd/MM/yyyy')} : '—'">—</td>
+                        ? ${#temporals.format(prestamo.fechaDevolucion, 'dd/MM/yyyy')} : '—'">—</td>
                     <td><span th:replace="~{fragments/layout :: estadoPrestamo(${prestamo})}"></span></td>
                     <td class="text-end">
                         <form th:unless="${prestamo.devuelto}" method="post"
@@ -67,6 +69,7 @@
         </div>
     </div>
 </main>
+
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
 </html>
