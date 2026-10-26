@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head('Error')}"></head>
 <body>
 <nav th:replace="~{fragments/layout :: navbar('')}"></nav>
@@ -11,7 +11,7 @@
         <h1 class="h4" th:case="*">Se ha producido un error inesperado</h1>
     </th:block>
     <p class="text-body-secondary" th:text="${path}">/ruta</p>
-    <a class="btn btn-primary mt-2" th:href="@{/}"><i class="bi bi-house me-1"></i> Volver al inicio</a>
+    <a class="btn btn-primary mt-2" th:href="@{/}"><i class="ti ti-home me-1"></i> Volver al inicio</a>
 </main>
 
 <footer th:replace="~{fragments/layout :: footer}"></footer>
