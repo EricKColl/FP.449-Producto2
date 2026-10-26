@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Nuevo préstamo')}"></head>
+<body>
+<nav th:replace="~{fragments/layout :: navbar('prestamos')}"></nav>
+
+<main class="container py-4">
+    <th:block th:replace="~{fragments/layout :: alertas}"></th:block>
+
+    <a class="btn btn-link px-0 mb-2" th:href="@{/prestamos}">
+        <i class="bi bi-arrow-left"></i> Volver a préstamos
+    </a>
+    <h1 class="h3 mb-3">Nuevo préstamo</h1>
+
+    <form class="card card-body" method="post" th:action="@{/prestamos}">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="usuarioId" class="form-label">Usuario *</label>
+                <select id="usuarioId" name="usuarioId" class="form-select" required>
+                    <option value="" disabled selected>Selecciona un usuario</option>
+                    <option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+                            th:text="${usuario.nombreCompleto}">Usuario</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="libroId" class="form-label">Libro *</label>
+                <select id="libroId" name="libroId" class="form-select" required>
+                    <option value="" disabled selected>Selecciona un libro</option>
+                    <option th:each="item : ${libros}" th:value="${item.libro.id}"
+                            th:disabled="${!item.prestable}"
+                            th:text="${item.libro.titulo} + ' · ' + (${item.prestable}
+                                ? (${item.disponibles} == 1 ? '1 disponible' : ${item.disponibles} + ' disponibles')
+                                : 'sin ejemplares')">Libro · 1 disponible</option>
+                </select>
+                <div class="form-text">Los libros sin ejemplares disponibles no se pueden prestar.</div>
+            </div>
+        </div>
+        <p class="text-body-secondary small mt-3 mb-0">
+            La devolución prevista es a los 15 días de la fecha de préstamo.
+        </p>
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-lg"></i> Registrar préstamo
+            </button>
+            <a class="btn btn-outline-secondary" th:href="@{/prestamos}">Cancelar</a>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

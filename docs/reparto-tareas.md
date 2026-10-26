@@ -11,10 +11,10 @@ conflictos al juntar el código. El mockup y los diagramas no esperan turno porq
 
 | | Persona | Parte | Criterio de la rúbrica del que es responsable |
 |---|---|---|---|
-| **1** | Erick Coll | Base técnica: modelo de datos, Docker, layout común. Revisión e integración de las pull requests, montaje del vídeo y memoria | Modelos con Spring Data · Docker |
+| **1** | Erick Coll | Base técnica: modelo de datos, Docker, layout común. Revisión e integración de las pull requests, mockup en Figma, montaje del vídeo y memoria | Modelos con Spring Data · Docker · Mockup |
 | **2** | Carles Miguel | CRUD completo de **Libros** | CRUD con Spring |
 | **3** | Jacobo Barrera | **Autores** y **Usuarios** + diagrama E/R y modelo relacional | Diagrama E/R |
-| **4** | Antonio Charneco | **Mockup** + **Préstamos** | Mockup |
+| **4** | Antonio Charneco | **Préstamos** (listado, filtro, devolución y alta de préstamos) | CRUD con Spring (listado de los demás modelos) |
 
 La base técnica fue la primera porque todas las demás dependen de ella. Cada parte de código lleva unas 8-10 horas.
 
@@ -106,25 +106,25 @@ Rama: `feature/jacobo-autores-usuarios` · **Diagramas: ✅ unidos el 13 de octu
 
 ---
 
-## Persona 4 · Mockup y Préstamos (Antonio)
+## Persona 4 · Préstamos (Antonio) · ✅ unido a `develop` el 26 de octubre (PR #6)
 
-Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15) ·
-**Turno 3 (préstamos): del lunes 26 al martes 27 de octubre** (pull request el martes 27)
+Rama: `feature/antonio-mockup-prestamos` · **Turno 3 (préstamos): del lunes 26 al martes 27 de octubre** (pull request y unión el lunes 26)
 
-**El mockup va primero** y no espera turno: sirve de guía a las vistas de los demás.
+**Cambio del 24 de octubre:** el mockup lo hace Erick al final, en Figma, con el diseño de la mejora gráfica de la aplicación,
+para que coincida con lo que se ve en la versión final. Antonio se centra en los préstamos.
 
-- [ ] Mockup (Figma, Balsamiq, Pencil o draw.io) que siga el estilo del layout ya hecho (Bootstrap, azul `#1f4e79`):
+- [ ] Mockup **(pasa a Erick)** en Figma, con el diseño final (Bootstrap, azul `#1f4e79`):
   - panel de inicio · listado de libros · formulario de libro · detalle de libro · listado de usuarios · listado de préstamos
   - **menú de navegación** en todas las pantallas y **botones** (nuevo, ver, editar, eliminar, volver, registrar devolución)
   - exportar las pantallas a `docs/mockup/*.png`
-- [ ] Préstamos: `service/PrestamoService.java`, `controller/PrestamoController.java`, `templates/prestamos/lista.html`
+- [x] Préstamos: `service/PrestamoService.java`, `controller/PrestamoController.java`, `templates/prestamos/lista.html`
   - listado con usuario, libro, fechas y **estado** con color (activo, vencido, devuelto) → `GET /prestamos`
   - filtro por estado → `GET /prestamos?estado=VENCIDO`
   - registrar la devolución → `POST /prestamos/{id}/devolver` (pone la fecha de hoy + mensaje)
-  - extra si da tiempo: nuevo préstamo, solo con libros que tengan ejemplares disponibles
-- [ ] Tests MockMvc del listado y de la devolución (4). Con ellos, `./mvnw verify` tiene que dar **47 tests**.
-- [ ] Grabar su parte del vídeo: mockup y préstamos.
-- [ ] Memoria: enviar a Erick qué ha hecho (mockup y préstamos) y sus dificultades (antes del viernes 30).
+  - [x] extra: nuevo préstamo (`GET /prestamos/nuevo` y `POST /prestamos`), solo con libros que tengan ejemplares disponibles
+- [x] Tests MockMvc del listado, la devolución y el alta (8): `./mvnw verify` da **51 tests**.
+- [ ] Grabar su parte del vídeo: préstamos (listado, filtro, devolución y nuevo préstamo).
+- [ ] Memoria: enviar a Erick qué ha hecho (préstamos) y sus dificultades (antes del viernes 30).
 
 ---
 
@@ -134,9 +134,9 @@ Rama: `feature/antonio-mockup-prestamos` · **Mockup: ya** (antes del jueves 15)
 |---|---|---|
 | Domingo 11 oct | Base técnica en GitHub ✅ | Erick |
 | Lunes 12 – viernes 23 oct | **Turno 1**: CRUD de libros. Unido en `develop` el viernes 23 ✅ | Carles |
-| **Jueves 15 oct** | Mockup terminado y diagramas E/R y relacional (no esperan turno). Diagramas unidos el 13 ✅ | Antonio, Jacobo |
+| Jueves 15 oct | Diagramas E/R y relacional (no esperan turno). Unidos el 13 ✅ | Jacobo |
 | Viernes 23 – domingo 25 oct | **Turno 2**: autores y usuarios. Unido en `develop` el sábado 24 ✅ | Jacobo |
-| **Lunes 26 – martes 27 oct** | **Turno 3**: préstamos + mockup final. El martes 27, pull request | Antonio |
+| Lunes 26 – martes 27 oct | **Turno 3**: préstamos. Unido en `develop` el lunes 26 ✅ | Antonio |
 | **Miércoles 28 oct** | Congelación: todo en `develop` y pasado a `main`. Desde aquí, solo arreglos | Erick |
 | **Jueves 29 oct** | Cada uno graba su parte del vídeo y se la envía a Erick | Todos |
 | **Viernes 30 oct** | Erick une el vídeo y lo sube a YouTube. Cada uno envía a Erick lo de su parte para la memoria | Erick / todos |
@@ -182,10 +182,10 @@ después Erick une los cortes en un solo vídeo.
 
 | Orden | Quién | Duración | Qué enseña |
 |---|---|---|---|
-| 1 | Erick | 1:30 | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Panel de inicio y menú de navegación. |
+| 1 | Erick | 1:30 | Presentación del equipo y del proyecto. `docker compose up -d --build` y `docker compose ps` (los tres contenedores en marcha). Adminer: las tablas y la relación `libro_autor`. Panel de inicio y menú de navegación. Mockup en Figma comparado con la aplicación. |
 | 2 | Carles | 2:00 | CRUD de libros: buscar, crear con un error de validación, crear bien, ver el detalle, editar (con los autores marcados) y eliminar (un libro sin préstamos y el bloqueo de uno con préstamos). |
 | 3 | Jacobo | 1:30 | Diagrama E/R y modelo relacional. Autores y usuarios: listados y detalles. |
-| 4 | Antonio | 1:30 | Mockup comparado con la aplicación. Préstamos: filtro por estado y registrar una devolución; el panel de inicio se actualiza. |
+| 4 | Antonio | 1:30 | Préstamos: filtro por estado, nuevo préstamo (los libros sin ejemplares no se pueden elegir) y registrar una devolución; el panel de inicio se actualiza. |
 | 5 | Erick | 0:30 | Cierre: los tests en verde (`verify`) y las comprobaciones automáticas de GitHub. |
 
 **Cómo grabar tu parte**
